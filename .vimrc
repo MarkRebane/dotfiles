@@ -12,11 +12,10 @@ if !exists('g:os')
 endif
 
 " Automatically download vim-plug to the autoload directory if it's not there
-let vim_plug_autoinstall = 0
 if has('nvim')
     if g:os == 'Linux'
         echo 'TESTME: support automatically installing vim/plug for NeoVim on Linux'
-        let vim_plug_vim_path = '~/.local/share/nvim/site/autoload/plug.vim'
+        let vim_plug_vim_path = '~/.local/share/nvim/site/autoload'
         let vim_plugged = '~/.local/share/nvim/site/plugged'
         let vim_config = '~/.local/share/nvim/site/config'
     elseif g:os == 'Windows'
@@ -28,7 +27,7 @@ if has('nvim')
     endif
 else
     if g:os == 'Linux'
-        let vim_plug_vim_path = '~/.vim/autoload/plug.vim'
+        let vim_plug_vim_path = '~/.vim/autoload'
         let vim_plugged = '~/.vim/plugged'
         let vim_config = '~/.vim/config'
     elseif g:os == 'Windows'
@@ -40,12 +39,19 @@ else
     endif
 endif
 
+let vim_plug_autoinstall = 0
+let vim_plug = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 if exists('vim_plug_vim_path') 
-    let vim_plug_vim = expand(vim_plug_vim_path)
+    let vim_plug_vim = expand(vim_plug_vim_path . '/plug.vim')
     if !filereadable(vim_plug_vim)
-        echo 'Installing vim/plug...'
-        sil exe '!curl https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim --create-dirs -fLo ' . vim_plug_vim_path
-        let vim_plug_autoinstall = 1
+        if exepath('curl') != ""
+            echo 'Installing vim/plug...'
+            sil exe '!curl ' . vim_plug .
+                \ ' --create-dirs -fLo ' . vim_plug_vim_path . '/plug.vim'
+            let vim_plug_autoinstall = 1
+        else
+            throw 'curl not found: sudo apt install curl'
+        endif
     endif
 endif
 
