@@ -40,14 +40,15 @@ else
 endif
 
 let vim_plug_autoinstall = 0
-let vim_plug = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+let vim_plug =
+  \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 if exists('vim_plug_vim_path') 
     let vim_plug_vim = expand(vim_plug_vim_path . '/plug.vim')
     if !filereadable(vim_plug_vim)
         if exepath('curl') != ""
             echo 'Installing vim/plug...'
             sil exe '!curl ' . vim_plug .
-                \ ' --create-dirs -fLo ' . vim_plug_vim_path . '/plug.vim'
+              \ ' --create-dirs -fLo ' . vim_plug_vim_path . '/plug.vim'
             let vim_plug_autoinstall = 1
         else
             throw 'curl not found: sudo apt install curl'
