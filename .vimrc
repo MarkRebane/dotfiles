@@ -62,7 +62,6 @@ Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'morhetz/gruvbox'
 Plug 'jacoborus/tender.vim'
 Plug 'nanotech/jellybeans.vim', {'tag': 'v1.6'}
-Plug 'sonph/onehalf', {'as': 'onehalf'}
 " Rainbow braces
 Plug 'luochen1990/rainbow'
 " Tim Pope plugins
@@ -81,20 +80,22 @@ Plug 'wincent/command-t'                             " fuzzy file navigation
 " Programming
 Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
 Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
+Plug 'Rip-Rip/clang_complete'                         " clang snippets
+Plug 'sheerun/vim-polyglot'                           " collection of language packs
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'} " symbol completion
 Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
-Plug 'sheerun/vim-polyglot'                           " collection of language packs
 "Plug 'vim-syntastic/syntastic' " syntax checking
 " Vim Markdown
 Plug 'godlygeek/tabular', {'for': 'markdown'}       " text alignment
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 " Vim Helpers
+Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}     " undo history visualiser
 Plug 'powerline/powerline'
 Plug 'vim-scripts/Tabmerge'
 Plug 'wesQ3/vim-windowswap'
-
+"
 call plug#end()
 
 if vim_plug_autoinstall
@@ -120,9 +121,10 @@ for filename in sort(split(glob(vim_config . '/*.vim'), '\n'))
 endfor
 
 " directories and programs
-"set backupdir=/var/tmp//
-"set directory=/var/tmp//
-"set makeprg=./build
+"sil exe '!mkdir -p ' . $HOME . '/.tmp'
+"set backupdir=$HOME/.tmp//
+"set directory=$HOME/.tmp//
+"set makeprg=./build -j$(($(nproc) + 1))
 
 " not sure why I added this, test on various before removal
 "au VimLeave * !echo -e "\033[0m"
