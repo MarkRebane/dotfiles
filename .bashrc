@@ -35,95 +35,102 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # set a fancy prompt (non-colour, unless we know we "want" colour)
-case "$TERM" in
-    xterm-color )
-        color_prompt=yes
-        normal="\033[0m"  #reset
-        em1="\033[32m"    #green
-        em2="\033[31m"    #red
-        em3="\033[34m"    #blue
-        em4="\033[33m" ;; #yellow
-    *-256color )
-        color_prompt=yes
-        normal="\033[0m"        #reset
-        em1="\033[38;5;120m"    #green
-        em2="\033[38;5;211m"    #pink
-        em3="\033[38;5;153m"    #blue
-        em4="\033[38;5;186m" ;; #yellow
-esac
+no_colour='\033[0m'
+# Palette entires 0-7
+palette00="\033[0;30m" # Black
+palette01="\033[0;31m" # Red
+palette02="\033[0;32m" # Green
+palette03="\033[0;33m" # Brown
+palette04="\033[0;34m" # Blue
+palette05="\033[0;35m" # Purple
+palette06="\033[0;36m" # Cyan
+palette07="\033[0;37m" # Light Gray
+# Palette entires 8-15
+palette08="\033[1;30m" # Dark Gray
+palette09="\033[1;31m" # Light Red
+palette10="\033[1;32m" # Light Green
+palette11="\033[1;33m" # Yellow
+palette12="\033[1;34m" # Light Blue
+palette13="\033[1;35m" # Light Purple
+palette14="\033[1;36m" # Light Cyan
+palette15="\033[1;37m" # White
 
 # MotD
-echo -e "${em1}This is BASH ${em2}${BASH_VERSION%.*} ${em1}- DISPLAY on ${em2}$DISPLAY ${em1}- TERM running ${em2}$TERM${normal}"
-echo -e "$em4$(date)$normal"
+echo -e "${palette01}This is BASH ${palette02}${BASH_VERSION%.*}"              \
+    "${palette01}- DISPLAY on${palette02}${DISPLAY}"                           \
+    "${palette01}- TERM running ${palette02}${TERM}${no_colour}"
+echo -e "${palette05}$(date)${no_colour}"
 
 # uncomment for a coloured prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_colour_prompt=yes
 # Shell Prompt
 
 if [[ "${DISPLAY%%:0*}" != "" ]]; then
-    hilit=${em3} # remote machine
+    hilite=${palette05} # remote machine
 else
-    hilit=${em2} # local machine
+    hilite=${palette10} # local machine
 fi
 
-function parse_git_branch {
+function parse_git_branch() {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
     echo "("${ref#refs/heads/}")"
 }
 
 function fastprompt() {
     unset PROMPT_COMMAND
-    case $TERM in
-        *term | rxvt* )
-            PS1="${hilit}[\h]${normal} \w $ \[\033]0;\${TERM} [\u@\h] \w\007\]" ;;
-        linux )
-            PS1="${hilit}[\h]${normal} \w $ " ;;
-        * )
-            PS1="[\h] \w $ " ;;
-    esac
+    if [ "${1}" = colour ]; then
+        case $TERM in
+            # If this is an xterm set the title to:
+            # user@host:dir$
+            xterm* | rxvt* | linux )
+                PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:\w\$ " ;;
+            * )
+                # Why are we distinguishing terminals?
+                # What can we do with this information?
+                ;;
+        esac
+    else
+        PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\$ "
+    fi
 }
 
 function powerprompt() {
-    case $TERM in
-        *term* | rxvt* )
-            PS1="\n$em2[${hilit}\u@\h$em2:$em1\#$em2:$em1\w$em3\$(parse_git_branch)$em2]\n$em1<\t>\$ $normal" ;;
-        linux )
-            PS1="\n$em2[${hilit}\u@\h$em2:$em1\#$em2:$em1\w$em3\$(parse_git_branch)$em2]\n$em1<\t>\$ $normal" ;;
-        * )
-            PS1="\n[\u@\h:\#:\w]\n<\t>\$ " ;;
-    esac
+    unset PROMPT_COMMAND
+    if [ "${1}" = colour ]; then
+        case ${TERM} in
+            # If this is an xterm set the title to:
+            # user@host:#:dir(branch)
+            # 00:00.00 $
+            xterm* | rxvt* | linux )
+                PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${palette12}\#${no_colour}:${palette10}\w${palette04}\$(parse_git_branch)\n${palette10}\t${no_colour} \$ " ;;
+            * )
+                # Why are we distinguishing terminals?
+                # What can we do with this information?
+                ;;
+        esac
+    else
+        PS1="${debian_chroot:+($debian_chroot)}\u@\h:\#:\w\n\t \$ "
+    fi
 }
 
-if [ -n "$force_color_prompt" ]; then
+if [ -n "${force_colour_prompt}" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
         # We have colour support; assume it's compliant with Ecma-48
         # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
         # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
+        colour_prompt=colour
     else
-        color_prompt=
+        colour_prompt=
     fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    powerprompt
 else
-    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    fastprompt
+    colour_prompt=colour
 fi
-unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+#fastprompt $colour_prompt
+powerprompt $colour_prompt
+unset colour_prompt force_colour_prompt
 
 # enable colour support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -149,6 +156,7 @@ alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
+# FIXME does this have quote errors?
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
@@ -175,3 +183,112 @@ alias tmux='tmux -2'
 if [ -f $HOME/.bashrc_aliases ]; then
     source $HOME/.bashrc_aliases
 fi
+
+function __loc() {
+    find "$@" \
+        -type f \
+        -regextype posix-awk \
+        -regex '.*\.(d|h|hpp|c|cc|C|cxx|cpp|idl|java|pl|pm|py|vala)' \
+        -print0 | xargs --null cat | grep -v "^$" | wc -l
+}
+
+function loc() {
+    if [ $# -eq 0 ]; then
+        __loc "."
+    else
+        __loc "$@"
+    fi
+}
+
+# Output a copy of $1 with duplicates removed
+# Note: subsequent copies are removed, otherwise order is preserved.
+# 1. the path to remove duplicates from
+function remove_duplicates() {
+    local original="${1}"
+    local result=""
+    local IFS=':'
+    for item in ${original}; do
+        if [ -z "$item" ]; then
+            continue
+        fi
+        local -i found_existing=0
+        for existing in ${result}; do
+            if [ "${item}" == "${existing}" ]; then
+                found_existing=1
+                break 1
+            fi
+        done
+        if [ ${found_existing} -eq 0 ]; then
+            result="${result:+${result}:}${item}"
+        fi
+    done
+    echo "${result}"
+}
+
+# Output a copy of $1 with duplicates removed
+# Note: subsequent copies are removed, otherwise order is preserved.
+# 1. the path to remove duplicates from
+function remove_invalid_dirs() {
+    local original="${1}"
+    local result=""
+    local IFS=':'
+    for item in ${original}; do
+        if [ -z "$item" ]; then
+            continue
+        fi
+        if [ -d $item ]; then
+            result="${result:+${result}:}${item}"
+        fi
+    done
+    echo "${result}"
+}
+
+function setup_local() {
+    local base=$1
+
+    if [ ! -d "${base}" ]; then
+        return
+    fi
+
+    if [ -d "${base}/bin" ]; then
+        PATH="${base}/bin:${PATH}"
+    fi
+
+    if [ -d "${base}/lib" ]; then
+        export LD_LIBRARY_PATH="${base}/lib:${LD_LIBRARY_PATH}"
+
+        if [ -d "${base}/lib/pkgconfig" ]; then
+            export PKG_CONFIG_PATH="${base}/lib/pkgconfig:${PKG_CONFIG_PATH}"
+        fi
+    fi
+
+    if [ -d "${base}/lib64" ]; then
+        export LD_LIBRARY_PATH="${base}/lib64:${LD_LIBRARY_PATH}"
+    fi
+
+    if [ -d "${base}/python2.7/site-packages" ]; then
+        export PYTHONPATH="${base}/python2.7/site-packages:$PYTHONPATH"
+    fi
+}
+
+GIT_PS1_SHOWDIRTYSTATE="yes"
+#GIT_PS1_SHOWSTASHSTATE="yes"
+GIT_PS1_SHOWUNTRACKEDFILES="yes"
+
+FG=32
+if [ -r /etc/bash_completion.d/git-prompt ]; then
+    PS1='\n\[\033[0;'$FG'm\]\u@\h: \[\033[1;33m\]\w\[\033[1;34m\]$(__git_ps1 " (%s)")\[\033[0m\]\n$ '
+else
+    PS1='\n\[\033[0;'$FG'm\]\u@\h: \[\033[1;33m\]\w\[\033[1;34m\]\n\[\033[0m\]$ '
+fi
+unset FG
+PS2="\\ "
+
+PATH=$(remove_duplicates ${PATH})
+PATH=$(remove_invalid_dirs ${PATH})
+LD_LIBRARY_PATH=$(remove_duplicates ${LD_LIBRARY_PATH})
+LD_LIBRARY_PATH=$(remove_invalid_dirs ${LD_LIBRARY_PATH})
+
+ulimit -c unlimited
+
+# Do machine specific things at some point
