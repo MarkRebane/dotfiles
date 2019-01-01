@@ -34,87 +34,10 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-colour, unless we know we "want" colour)
-no_colour='\033[0m'
-# Palette entires 0-7
-palette00="\033[0;30m" # Black
-palette01="\033[0;31m" # Red
-palette02="\033[0;32m" # Green
-palette03="\033[0;33m" # Brown
-palette04="\033[0;34m" # Blue
-palette05="\033[0;35m" # Purple
-palette06="\033[0;36m" # Cyan
-palette07="\033[0;37m" # Light Gray
-# Palette entires 8-15
-palette08="\033[1;30m" # Dark Gray
-palette09="\033[1;31m" # Light Red
-palette10="\033[1;32m" # Light Green
-palette11="\033[1;33m" # Yellow
-palette12="\033[1;34m" # Light Blue
-palette13="\033[1;35m" # Light Purple
-palette14="\033[1;36m" # Light Cyan
-palette15="\033[1;37m" # White
-
-# MotD
-echo -e "${palette01}This is BASH ${palette02}${BASH_VERSION%.*}"              \
-    "${palette01}- DISPLAY on${palette02}${DISPLAY}"                           \
-    "${palette01}- TERM running ${palette02}${TERM}${no_colour}"
-echo -e "${palette05}$(date)${no_colour}"
-
-# uncomment for a coloured prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
+# uncomment for a coloured prompt, if the terminal has the capability
 #force_colour_prompt=yes
-# Shell Prompt
 
-if [[ "${DISPLAY%%:0*}" != "" ]]; then
-    hilite=${palette05} # remote machine
-else
-    hilite=${palette10} # local machine
-fi
-
-function parse_git_branch() {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    echo "("${ref#refs/heads/}")"
-}
-
-function fastprompt() {
-    unset PROMPT_COMMAND
-    if [ "${1}" = colour ]; then
-        case $TERM in
-            # If this is an xterm set the title to:
-            # user@host:dir$
-            xterm* | rxvt* | linux )
-                PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:\w\$ " ;;
-            * )
-                # Why are we distinguishing terminals?
-                # What can we do with this information?
-                ;;
-        esac
-    else
-        PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\$ "
-    fi
-}
-
-function powerprompt() {
-    unset PROMPT_COMMAND
-    if [ "${1}" = colour ]; then
-        case ${TERM} in
-            # If this is an xterm set the title to:
-            # user@host:#:dir(branch)
-            # 00:00.00 $
-            xterm* | rxvt* | linux )
-                PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${palette12}\#${no_colour}:${palette10}\w${palette04}\$(parse_git_branch)\n${palette10}\t${no_colour} \$ " ;;
-            * )
-                # Why are we distinguishing terminals?
-                # What can we do with this information?
-                ;;
-        esac
-    else
-        PS1="${debian_chroot:+($debian_chroot)}\u@\h:\#:\w\n\t \$ "
-    fi
-}
-
+# decide if we're going to try using colours
 if [ -n "${force_colour_prompt}" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
         # We have colour support; assume it's compliant with Ecma-48
@@ -128,9 +51,124 @@ else
     colour_prompt=colour
 fi
 
-#fastprompt $colour_prompt
-powerprompt $colour_prompt
+if [ -n "${colour_prompt}" ]; then
+    no_colour="\033[0m"
+    # Palette entires 0-7
+    plt00="\033[0;30m" # Black
+    plt01="\033[0;31m" # Red
+    plt02="\033[0;32m" # Green
+    plt03="\033[0;33m" # Brown
+    plt04="\033[0;34m" # Blue
+    plt05="\033[0;35m" # Purple
+    plt06="\033[0;36m" # Cyan
+    plt07="\033[0;37m" # Light Gray
+    # Palette entires 8-15
+    plt08="\033[1;30m" # Dark Gray
+    plt09="\033[1;31m" # Light Red
+    plt10="\033[1;32m" # Light Green
+    plt11="\033[1;33m" # Yellow
+    plt12="\033[1;34m" # Light Blue
+    plt13="\033[1;35m" # Light Purple
+    plt14="\033[1;36m" # Light Cyan
+    plt15="\033[1;37m" # White
+else
+    no_colour=
+    # Palette entires 0-7
+    plt00= # Black
+    plt01= # Red
+    plt02= # Green
+    plt03= # Brown
+    plt04= # Blue
+    plt05= # Purple
+    plt06= # Cyan
+    plt07= # Light Gray
+    # Palette entires 8-15
+    plt08= # Dark Gray
+    plt09= # Light Red
+    plt10= # Light Green
+    plt11= # Yellow
+    plt12= # Light Blue
+    plt13= # Light Purple
+    plt14= # Light Cyan
+    plt15= # White
+fi
 unset colour_prompt force_colour_prompt
+
+# MotD
+echo -e "${plt01}This is BASH ${plt02}${BASH_VERSION%.*}"                      \
+    "${plt01}- DISPLAY on${plt02}${DISPLAY}"                                   \
+    "${plt01}- TERM running ${plt02}${TERM}${no_colour}"
+echo -e "${plt05}$(date)${no_colour}"
+
+
+if [[ "${DISPLAY%%:0*}" != "" ]]; then
+    hilite=${plt09} # remote machine
+else
+    hilite=${plt07} # local machine
+fi
+
+function rainbow() {
+    for i in $(seq -f "%02g" 0 15); do
+        local palette=plt${i}
+        echo -e "\"${!palette}${palette}${no_colour}\""
+    done
+    echo -e "${no_colour}"
+}
+
+function git_ps1() {
+    if [ -r /etc/bash_completion.d/git-prompt ]; then
+        echo "$(__git_ps1 "(%s)")"
+    else
+        ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+        echo "("${ref#refs/heads/}")"
+    fi
+}
+
+GIT_PS1_SHOWDIRTYSTATE="yes"
+GIT_PS1_SHOWSTASHSTATE="yes"
+GIT_PS1_SHOWUNTRACKEDFILES="yes"
+
+if [ -r /etc/bash_completion.d/git-prompt ]; then
+    PS1="\n${plt02}\u@\h:${plt11}\w${plt12}$(__git_ps1 "(%s)")${no_colour}\n\$ "
+else
+    PS1="\n${plt02}\u@\h:${plt11}\w${plt12}\n${no_colour}\$ "
+fi
+
+function fastprompt() {
+    unset PROMPT_COMMAND
+    case $TERM in
+        # If this is an xterm set the title to:
+        # user@host:dir$
+        xterm* | rxvt* )
+            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w\n\$ " ;;
+        * )
+            # Why are we distinguishing terminals?
+            # What can we do with this information?
+            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\n\$ " ;;
+    esac
+}
+
+function powerprompt() {
+    unset PROMPT_COMMAND
+    case ${TERM} in
+        # If this is an xterm set the title to:
+        # user@host:#:dir(branch)
+        # 00:00.00 $
+        xterm* | rxvt* )
+            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt07}\#${no_colour}:${plt15}\w ${plt12}\$(git_ps1)\n${plt07}\t${no_colour} \$ " ;;
+        * )
+            # Why are we distinguishing terminals?
+            # What can we do with this information?
+            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\#:\w\n\t \$ " ;;
+    esac
+}
+
+# Shell Prompt
+#fastprompt
+powerprompt
+PS2="\\ "
+
+rainbow
 
 # enable colour support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -244,7 +282,7 @@ function remove_invalid_dirs() {
 }
 
 function setup_local() {
-    local base=$1
+    local base=${1}
 
     if [ ! -d "${base}" ]; then
         return
@@ -267,22 +305,10 @@ function setup_local() {
     fi
 
     if [ -d "${base}/python2.7/site-packages" ]; then
-        export PYTHONPATH="${base}/python2.7/site-packages:$PYTHONPATH"
+        export PYTHONPATH="${base}/python2.7/site-packages:${PYTHONPATH}"
     fi
 }
 
-GIT_PS1_SHOWDIRTYSTATE="yes"
-#GIT_PS1_SHOWSTASHSTATE="yes"
-GIT_PS1_SHOWUNTRACKEDFILES="yes"
-
-FG=32
-if [ -r /etc/bash_completion.d/git-prompt ]; then
-    PS1='\n\[\033[0;'$FG'm\]\u@\h: \[\033[1;33m\]\w\[\033[1;34m\]$(__git_ps1 " (%s)")\[\033[0m\]\n$ '
-else
-    PS1='\n\[\033[0;'$FG'm\]\u@\h: \[\033[1;33m\]\w\[\033[1;34m\]\n\[\033[0m\]$ '
-fi
-unset FG
-PS2="\\ "
 
 PATH=$(remove_duplicates ${PATH})
 PATH=$(remove_invalid_dirs ${PATH})
