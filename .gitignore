@@ -17,3 +17,6 @@ build
 source
 *_history
 *old
+
+# ignore everything for now... I'll think about what I want to do long term
+*

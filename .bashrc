@@ -95,10 +95,10 @@ fi
 unset colour_prompt force_colour_prompt
 
 # MotD
-echo -e "${plt01}This is BASH ${plt02}${BASH_VERSION%.*}"                      \
-    "${plt01}- DISPLAY on${plt02}${DISPLAY}"                                   \
-    "${plt01}- TERM running ${plt02}${TERM}${no_colour}"
-echo -e "${plt05}$(date)${no_colour}"
+echo -e "${plt02}This is BASH ${plt03}${BASH_VERSION%.*}"                      \
+    "${plt02}- DISPLAY on${plt03}${DISPLAY}"                                   \
+    "${plt02}- TERM running ${plt03}${TERM}${no_colour}"
+echo -e "${plt02}$(date)${no_colour}\n"
 
 
 if [[ "${DISPLAY%%:0*}" != "" ]]; then
@@ -117,6 +117,7 @@ function rainbow() {
 
 function git_ps1() {
     if [ -r /etc/bash_completion.d/git-prompt ]; then
+        source /etc/bash_completion.d/git-prompt
         echo "$(__git_ps1 "(%s)")"
     else
         ref=$(git symbolic-ref HEAD 2> /dev/null) || return
@@ -149,7 +150,7 @@ function powerprompt() {
         # user@host:#:dir(branch)
         # 00:00.00 $
         xterm* | rxvt* )
-            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w\n${plt12}$(git_ps1) ${no_colour}\$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w${plt12}$(git_ps1)\n${no_colour}\$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
