@@ -128,12 +128,6 @@ GIT_PS1_SHOWDIRTYSTATE="yes"
 GIT_PS1_SHOWSTASHSTATE="yes"
 GIT_PS1_SHOWUNTRACKEDFILES="yes"
 
-if [ -r /etc/bash_completion.d/git-prompt ]; then
-    PS1="\n${plt02}\u@\h:${plt11}\w${plt12}$(__git_ps1 "(%s)")${no_colour}\n\$ "
-else
-    PS1="\n${plt02}\u@\h:${plt11}\w${plt12}\n${no_colour}\$ "
-fi
-
 function fastprompt() {
     unset PROMPT_COMMAND
     case $TERM in
@@ -155,11 +149,11 @@ function powerprompt() {
         # user@host:#:dir(branch)
         # 00:00.00 $
         xterm* | rxvt* )
-            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt07}\#${no_colour}:${plt15}\w ${plt12}\$(git_ps1)\n${plt07}\t${no_colour} \$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w\n${plt12}$(git_ps1) ${no_colour}\$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
-            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\#:\w\n\t \$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\n\$ " ;;
     esac
 }
 
@@ -167,8 +161,6 @@ function powerprompt() {
 #fastprompt
 powerprompt
 PS2="\\ "
-
-rainbow
 
 # enable colour support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
