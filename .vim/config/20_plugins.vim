@@ -4,6 +4,19 @@
 let g:solarized_termcolors=256
 colorscheme jellybeans
 
+" -- clang_complete ------------------------------------------------------------
+let g:clang_auto_select = 1    " automatically select the first entry
+let g:clang_complete_auto = 1  " automatically show completion after ->, ., ::
+let g:clang_complete_copen = 1 " open quickfix window on error
+let g:clang_periodic_quickfix = 0 " maybe bind this to a key?
+let g:clang_debug = 1
+" see 100_localvimrc.vim for machine specific config
+"let g:clang_library_path = ''
+"let g:clang_auto_user_options = ''
+" clang_complete snippets settings
+let g:clang_snippets = 1       " snippets for func args, template params, etc.
+"let g:clang_snippets_engine    " can be set to ultisnips
+
 " -- clang-format --------------------------------------------------------------
 let g:clang_format#auto_format = 1                 " on save
 let g:clang_format#detect_style_file = 1           " auto detect from file
@@ -25,6 +38,7 @@ let g:NERDTreeWinSize = 40
 let g:NERDTreeMinimalUI = 1
 
 " -- powerline -----------------------------------------------------------------
+"  TODO Add a check here to see if powerline is installed
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
 " -- rainbow parentheses -------------------------------------------------------

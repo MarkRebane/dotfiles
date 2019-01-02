@@ -115,19 +115,19 @@ function rainbow() {
     echo -e "${no_colour}"
 }
 
+GIT_PS1_SHOWDIRTYSTATE="yes"
+GIT_PS1_SHOWSTASHSTATE="yes"
+GIT_PS1_SHOWUNTRACKEDFILES="yes"
+
 function git_ps1() {
     if [ -r /etc/bash_completion.d/git-prompt ]; then
         source /etc/bash_completion.d/git-prompt
-        echo "$(__git_ps1 "(%s)")"
+        echo "$(__git_ps1 "(%s) ")"
     else
         ref=$(git symbolic-ref HEAD 2> /dev/null) || return
         echo "("${ref#refs/heads/}")"
     fi
 }
-
-GIT_PS1_SHOWDIRTYSTATE="yes"
-GIT_PS1_SHOWSTASHSTATE="yes"
-GIT_PS1_SHOWUNTRACKEDFILES="yes"
 
 function fastprompt() {
     unset PROMPT_COMMAND
@@ -135,11 +135,11 @@ function fastprompt() {
         # If this is an xterm set the title to:
         # user@host:dir$
         xterm* | rxvt* )
-            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w\n\$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w \$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
-            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\n\$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w \$ " ;;
     esac
 }
 
@@ -150,11 +150,11 @@ function powerprompt() {
         # user@host:#:dir(branch)
         # 00:00.00 $
         xterm* | rxvt* )
-            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w${plt12}$(git_ps1)\n${no_colour}\$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w${plt12}$(git_ps1)${no_colour}\$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
-            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\n\$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w \$ " ;;
     esac
 }
 
@@ -176,6 +176,8 @@ fi
 # personal aliases
 alias mkdir='mkdir -p'
 alias ..='cd ..'
+alias reload='source ~/.bashrc'
+alias relaod='source ~/.bashrc'
 
 # coloured GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -302,6 +304,13 @@ function setup_local() {
     fi
 }
 
+# Load local machine's configuration
+localbashrc="${HOME}/.localbashrc"
+if [ -r ${localbashrc} ]; then
+    source ${localbashrc}
+else
+    echo "Warning: ${localbashrc} not found."
+fi
 
 PATH=$(remove_duplicates ${PATH})
 PATH=$(remove_invalid_dirs ${PATH})
@@ -309,5 +318,3 @@ LD_LIBRARY_PATH=$(remove_duplicates ${LD_LIBRARY_PATH})
 LD_LIBRARY_PATH=$(remove_invalid_dirs ${LD_LIBRARY_PATH})
 
 ulimit -c unlimited
-
-# Do machine specific things at some point
