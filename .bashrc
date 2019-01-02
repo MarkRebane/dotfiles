@@ -94,6 +94,10 @@ else
 fi
 unset colour_prompt force_colour_prompt
 
+#if [ -n "${TMUX}" ]; then
+#    TERM="screen-256color"
+#fi
+
 # MotD
 echo -e "${plt02}This is BASH ${plt03}${BASH_VERSION%.*}"                      \
     "${plt02}- DISPLAY on${plt03}${DISPLAY}"                                   \
@@ -211,7 +215,7 @@ if ! shopt -oq posix; then
     source /etc/bash_completion
   fi
 fi
-alias tmux='tmux -2'
+alias tmux="tmux -2"
 
 if [ -f $HOME/.bashrc_aliases ]; then
     source $HOME/.bashrc_aliases

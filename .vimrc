@@ -116,16 +116,15 @@ filetype plugin indent on
 " Australian spelling
 setlocal spell spelllang=en_au
 
+" directories and programs
+sil exe '!mkdir -p ' . $HOME . '/.tmp'
+set backupdir=$HOME/.tmp//
+set directory=$HOME/.tmp//
+
 " Process configuration files
 for filename in sort(split(glob(vim_config . '/*.vim'), '\n'))
     execute 'source ' . filename
 endfor
-
-" directories and programs
-"sil exe '!mkdir -p ' . $HOME . '/.tmp'
-"set backupdir=$HOME/.tmp//
-"set directory=$HOME/.tmp//
-"set makeprg=./build -j$(($(nproc) + 1))
 
 " not sure why I added this, test on various before removal
 "au VimLeave * !echo -e "\033[0m"
