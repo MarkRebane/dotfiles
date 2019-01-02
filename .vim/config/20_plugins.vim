@@ -28,7 +28,7 @@ let g:NERDTreeMinimalUI = 1
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
 " -- rainbow parentheses -------------------------------------------------------
-map <C-w> :RainbowToggle<CR>
+"map <C-w> :RainbowToggle<CR> " need to work out a good mapping for this
 " 0 if you want to enable it via :RainbowToggle
 let g:rainbow_active = 1
 let g:rainbow_conf = {
