@@ -22,5 +22,9 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 # disable capslock and remap capslock to ctrl
-gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
-# setxkbmap -option ctrl:nocaps
+if hash gsettings >/dev/null 2>&1; then
+    gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+fi
+# if hash setxkbmap >/dev/null 2>&1; then
+#     setxkbmap -option ctrl:nocaps
+# fi
