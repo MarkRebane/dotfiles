@@ -130,10 +130,10 @@ GIT_PS1_SHOWUNTRACKEDFILES="yes"
 function git_ps1() {
     if [ -r /etc/bash_completion.d/git-prompt ]; then
         source /etc/bash_completion.d/git-prompt
-        printf -- "$(__git_ps1 "(%s) ")"
+        echo -e "$(__git_ps1 "(%s) ")"
     else
         ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-        printf -- "("${ref#refs/heads/}")"
+        echo -e "("${ref#refs/heads/}")"
     fi
 }
 
