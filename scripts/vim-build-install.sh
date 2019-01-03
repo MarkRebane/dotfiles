@@ -45,10 +45,10 @@ if [[ -d ${python2_config} && -d ${python3_config} ]]; then
         --enable-gui=gtk2 \
         --enable-cscope \
         --enable-gpm \
-        --prefix=/usr/local
+        --prefix=$HOME/local/vim
 
     echo "make..."
-    make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
+    make VIMRUNTIMEDIR=$HOME/local/vim/share/vim/vim81
     echo "make install..."
     sudo make install
 else

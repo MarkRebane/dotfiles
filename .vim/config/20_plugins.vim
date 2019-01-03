@@ -26,6 +26,11 @@ nmap <Leader>ce :ClangFormatAutoEnable<CR>
 nmap <Leader>cd :ClangFormatAutoDisable<CR>
 nmap <Leader>ct :ClangFormatAutoToggle<CR>
 
+" -- command-t -----------------------------------------------------------------
+let g:CommandTScanDotDirectories = 1
+let g:CommandTFileScanner = "git"
+set wildignore+=*.o
+
 " -- markdown ------------------------------------------------------------------
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_toc_autofit = 1

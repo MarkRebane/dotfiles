@@ -52,25 +52,25 @@ else
 fi
 
 if [ -n "${colour_prompt}" ]; then
-    no_colour=$'\x01\033[0m\x02'
+    no_colour='\033[0m'
     # Palette entires 0-7
-    plt00=$'\x01\033[0;30m\x02' # Black
-    plt01=$'\x01\033[0;31m\x02' # Red
-    plt02=$'\x01\033[0;32m\x02' # Green
-    plt03=$'\x01\033[0;33m\x02' # Brown
-    plt04=$'\x01\033[0;34m\x02' # Blue
-    plt05=$'\x01\033[0;35m\x02' # Purple
-    plt06=$'\x01\033[0;36m\x02' # Cyan
-    plt07=$'\x01\033[0;37m\x02' # Light Gray
+    plt00='\033[0;30m' # Black
+    plt01='\033[0;31m' # Red
+    plt02='\033[0;32m' # Green
+    plt03='\033[0;33m' # Brown
+    plt04='\033[0;34m' # Blue
+    plt05='\033[0;35m' # Purple
+    plt06='\033[0;36m' # Cyan
+    plt07='\033[0;37m' # Light Gray
     # Palette entires 8-15
-    plt08=$'\x01\033[1;30m\x02' # Dark Gray
-    plt09=$'\x01\033[1;31m\x02' # Light Red
-    plt10=$'\x01\033[1;32m\x02' # Light Green
-    plt11=$'\x01\033[1;33m\x02' # Yellow
-    plt12=$'\x01\033[1;34m\x02' # Light Blue
-    plt13=$'\x01\033[1;35m\x02' # Light Purple
-    plt14=$'\x01\033[1;36m\x02' # Light Cyan
-    plt15=$'\x01\033[1;37m\x02' # White
+    plt08='\033[1;30m' # Dark Gray
+    plt09='\033[1;31m' # Light Red
+    plt10='\033[1;32m' # Light Green
+    plt11='\033[1;33m' # Yellow
+    plt12='\033[1;34m' # Light Blue
+    plt13='\033[1;35m' # Light Purple
+    plt14='\033[1;36m' # Light Cyan
+    plt15='\033[1;37m' # White
 else
     no_colour=
     # Palette entires 0-7
@@ -104,7 +104,6 @@ echo -e "${plt02}This is BASH ${plt03}${BASH_VERSION%.*}"                      \
     "${plt02}- TERM running ${plt03}${TERM}${no_colour}"
 echo -e "${plt02}$(date)${no_colour}\n"
 
-
 if [[ "${DISPLAY%%:0*}" != "" ]]; then
     hilite=${plt09} # remote machine
 else
@@ -112,11 +111,16 @@ else
 fi
 
 function rainbow() {
-    for i in $(seq -f "%02g" 0 15); do
+    for i in $(seq -f "%02g" 0 7); do
         local palette=plt${i}
-        echo -e "\"${!palette}${palette}${no_colour}\""
+        printf "{${!palette}${palette}${no_colour}}, "
     done
-    echo -e "${no_colour}"
+    printf "\n"
+    for i in $(seq -f "%02g" 8 15); do
+        local palette=plt${i}
+        printf "{${!palette}${palette}${no_colour}}, "
+    done
+    printf "${no_colour}{no_colour}\n"
 }
 
 GIT_PS1_SHOWDIRTYSTATE="yes"
@@ -126,10 +130,10 @@ GIT_PS1_SHOWUNTRACKEDFILES="yes"
 function git_ps1() {
     if [ -r /etc/bash_completion.d/git-prompt ]; then
         source /etc/bash_completion.d/git-prompt
-        echo "$(__git_ps1 "(%s) ")"
+        printf -- "$(__git_ps1 "(%s) ")"
     else
         ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-        echo "("${ref#refs/heads/}")"
+        printf -- "("${ref#refs/heads/}")"
     fi
 }
 
@@ -139,7 +143,7 @@ function fastprompt() {
         # If this is an xterm set the title to:
         # user@host:dir$
         xterm* | rxvt* )
-            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w \$ " ;;
+            PS1="${debian_chroot:+($debian_chroot)}\[${hilite}\]\u@\h$\[{no_colour}\]:\[${plt15}\]\w \$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
@@ -154,7 +158,7 @@ function powerprompt() {
         # user@host:#:dir(branch)
         # 00:00.00 $
         xterm* | rxvt* )
-            PS1="${debian_chroot:+($debian_chroot)}${hilite}\u@\h${no_colour}:${plt15}\w${plt12}$(git_ps1)${no_colour}\$ " ;;
+            PS1=$"${debian_chroot:+($debian_chroot)}\[${hilite}\]\u@\h\[${no_colour}\]:\[${plt15}\]\w\[${plt12}\]$(git_ps1)\[${no_colour}\]\$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
@@ -322,3 +326,6 @@ LD_LIBRARY_PATH=$(remove_duplicates ${LD_LIBRARY_PATH})
 LD_LIBRARY_PATH=$(remove_invalid_dirs ${LD_LIBRARY_PATH})
 
 ulimit -c unlimited
+
+# Disable Software Flow Control
+stty -ixon
