@@ -85,9 +85,10 @@ Plug 'wincent/command-t', {
 Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
 Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
 Plug 'Rip-Rip/clang_complete'                         " clang snippets
+Plug 'ervandew/supertab'                              " <tab> to perform completions
 Plug 'sheerun/vim-polyglot'                           " collection of language packs
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'} " symbol completion
-Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
+"Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
 "Plug 'vim-syntastic/syntastic' " syntax checking
 " Vim Markdown
 Plug 'godlygeek/tabular', {'for': 'markdown'}       " text alignment

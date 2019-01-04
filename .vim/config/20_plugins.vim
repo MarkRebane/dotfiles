@@ -9,13 +9,14 @@ let g:clang_auto_select = 1    " automatically select the first entry
 let g:clang_complete_auto = 1  " automatically show completion after ->, ., ::
 let g:clang_complete_copen = 1 " open quickfix window on error
 let g:clang_periodic_quickfix = 0 " maybe bind this to a key?
+let g:clang_complete_optional_args_in_snippets = 1
 let g:clang_debug = 1
 " see 100_localvimrc.vim for machine specific config
 "let g:clang_library_path = ''
 "let g:clang_auto_user_options = ''
 " clang_complete snippets settings
 let g:clang_snippets = 1       " snippets for func args, template params, etc.
-"let g:clang_snippets_engine    " can be set to ultisnips
+let g:clang_snippets_engine = 'clang_complete' " can be set to ultisnips
 
 " -- clang-format --------------------------------------------------------------
 let g:clang_format#auto_format = 1                 " on save
