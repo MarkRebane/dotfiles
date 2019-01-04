@@ -92,6 +92,8 @@ Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
 " Vim Markdown
 Plug 'godlygeek/tabular', {'for': 'markdown'}       " text alignment
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+" TMUX Helpers
+Plug 'benmills/vimux' " Easily interact with tmux from vim
 " Vim Helpers
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
