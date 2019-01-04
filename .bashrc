@@ -143,11 +143,11 @@ function fastprompt() {
         # If this is an xterm set the title to:
         # user@host:dir$
         xterm* | rxvt* )
-            PS1="${debian_chroot:+($debian_chroot)}\[${hilite}\]\u@\h$\[{no_colour}\]:\[${plt15}\]\w \$ " ;;
+            PS1="\[${debian_chroot:+($debian_chroot)}${hilite}\]\u@\h$\[{no_colour}\]:\[${plt15}\]\w \$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
-            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w \$ " ;;
+            PS1="\[${debian_chroot:+($debian_chroot)}\]\u@\h:\w \$ " ;;
     esac
 }
 
@@ -158,11 +158,11 @@ function powerprompt() {
         # user@host:#:dir(branch)
         # 00:00.00 $
         xterm* | rxvt* )
-            PS1=$"${debian_chroot:+($debian_chroot)}\[${hilite}\]\u@\h\[${no_colour}\]:\[${plt15}\]\w\[${plt12}\]$(git_ps1)\[${no_colour}\]\$ " ;;
+            PS1="\[${debian_chroot:+($debian_chroot)}${hilite}\]\u@\h\[${no_colour}\]:\[${plt15}\]\w\[${plt12}\]$(git_ps1)\[${no_colour}\]\$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
-            PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w \$ " ;;
+            PS1="\[${debian_chroot:+($debian_chroot)}\]\u@\h:\w \$ " ;;
     esac
 }
 
@@ -312,6 +312,7 @@ function setup_local() {
     fi
 }
 
+setup_local ${HOME}/.local/vim
 # Load local machine's configuration
 localbashrc="${HOME}/.localbashrc"
 if [ -r ${localbashrc} ]; then
