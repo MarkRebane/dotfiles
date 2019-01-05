@@ -1,7 +1,10 @@
 " -- Key mappings
 
 " toggle paste in insert mode
-set pastetoggle=<F1>
+set pastetoggle=<F3>
 
 " toggle spelling
-map <F2> :set spell!<cr>
+noremap <F2> :set spell!<cr>
+
+" turn off search highlight, will turn on again upon search
+nnoremap <Leader><Tab> :nohlsearch<CR>

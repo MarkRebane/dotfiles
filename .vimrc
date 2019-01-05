@@ -2,6 +2,10 @@
 set nocompatible
 filetype off
 
+" Enable syntax highlighting and filetype detection (for netrw)
+syntax enable
+filetype plugin indent on
+
 " Detect system for cross platform configuration
 if !exists('g:os')
     if has('win64') || has('win32') || has('win16')
@@ -15,9 +19,7 @@ endif
 if has('nvim')
     if g:os == 'Linux'
         echo 'TESTME: support automatically installing vim/plug for NeoVim on Linux'
-        let vim_plug_vim_path = '~/.local/share/nvim/site/autoload'
-        let vim_plugged = '~/.local/share/nvim/site/plugged'
-        let vim_config = '~/.local/share/nvim/site/config'
+        let vim_base_dir = $HOME.'/.local/share/nvim/site'
     elseif g:os == 'Windows'
         echo 'TODO: support automatically installing vim/plug for NeoVim on Windows'
     elseif g:os == 'Darwin'
@@ -27,9 +29,7 @@ if has('nvim')
     endif
 else
     if g:os == 'Linux'
-        let vim_plug_vim_path = '~/.vim/autoload'
-        let vim_plugged = '~/.vim/plugged'
-        let vim_config = '~/.vim/config'
+        let vim_base_dir = $HOME.'/.vim'
     elseif g:os == 'Windows'
         echo 'TODO: support automatically installing vim/plug for Vim on Windows'
     elseif g:os == 'Darwin'
@@ -38,6 +38,14 @@ else
         echo 'vim: Unknown operating system: $(g:os)'
     endif
 endif
+let vim_plug_vim_path = vim_base_dir.'/autoload'
+let vim_plugged = vim_base_dir.'/plugged'
+let vim_config = vim_base_dir.'/config'
+let vim_tmp = vim_base_dir.'/tmp'
+
+sil exe '!mkdir -p '.vim_tmp
+let &backupdir = vim_tmp.'//'
+let &directory = vim_tmp.'//'
 
 let vim_plug_autoinstall = 0
 let vim_plug =
@@ -57,6 +65,19 @@ if exists('vim_plug_vim_path')
 endif
 
 call plug#begin(vim_plugged)
+" C++
+Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
+Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
+Plug 'Rip-Rip/clang_complete'                         " clang snippets
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'} " symbol completion
+"Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
+" Markdown
+Plug 'godlygeek/tabular', {'for': 'markdown'}       " text alignment
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'} " markdown vim mode
+" Programming
+Plug 'ervandew/supertab'       " <tab> to perform completions
+"Plug 'sheerun/vim-polyglot'    " collection of language packs
+"Plug 'vim-syntastic/syntastic' " syntax checking for many languages
 " Colour schemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim', {'as': 'dracula'}
@@ -77,24 +98,9 @@ Plug 'tpope/vim-vinegar'       " enhance netrw (the built-in directory browser)
 " File Navigation
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " a directory/file explorer
 Plug 'terryma/vim-smooth-scroll'                     " make scrolling more pleasant
-" fuzzy file navigation
 Plug 'wincent/command-t', {
   \  'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
-  \ }
-" Programming
-Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
-Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
-Plug 'Rip-Rip/clang_complete'                         " clang snippets
-Plug 'ervandew/supertab'                              " <tab> to perform completions
-Plug 'sheerun/vim-polyglot'                           " collection of language packs
-Plug 'Valloric/YouCompleteMe', {'do': './install.py'} " symbol completion
-"Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
-"Plug 'vim-syntastic/syntastic' " syntax checking
-" Vim Markdown
-Plug 'godlygeek/tabular', {'for': 'markdown'}       " text alignment
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-" TMUX Helpers
-Plug 'benmills/vimux' " Easily interact with tmux from vim
+  \ }                                                " fuzzy file navigation
 " Vim Helpers
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
@@ -110,27 +116,7 @@ if vim_plug_autoinstall
     :PlugInstall
 endif
 
-if &termencoding == ""
-    let &termencoding = &encoding
-endif
-set encoding=utf-8
-
-" Enable syntax highlighting and filetype stuff (for netrw)
-syntax enable
-filetype plugin indent on
-
-" Australian spelling
-setlocal spell spelllang=en_au
-
-" directories and programs
-sil exe '!mkdir -p ' . $HOME . '/.tmp'
-set backupdir=$HOME/.tmp//
-set directory=$HOME/.tmp//
-
 " Process configuration files
 for filename in sort(split(glob(vim_config . '/*.vim'), '\n'))
     execute 'source ' . filename
 endfor
-
-" not sure why I added this, test on various before removal
-"au VimLeave * !echo -e "\033[0m"
