@@ -6,6 +6,13 @@ filetype off
 syntax enable
 filetype plugin indent on
 
+" Set <Leader> to your preference. Default: "\\"
+let mapleader = "\<Space>"
+" Set <LocalLeader> to your preference. Default: "\\"
+"let maplocalleader = ""
+" If using "\<Space>", remap space so it doesn't move the cursor forward
+nnoremap <Space> <Nop>
+
 " Detect system for cross platform configuration
 if !exists('g:os')
     if has('win64') || has('win32') || has('win16')

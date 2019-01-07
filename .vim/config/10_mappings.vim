@@ -7,4 +7,4 @@ set pastetoggle=<F3>
 noremap <F2> :set spell!<cr>
 
 " turn off search highlight, will turn on again upon search
-nnoremap <Leader><Tab> :nohlsearch<CR>
+nnoremap <Leader><Space> :nohlsearch<CR>

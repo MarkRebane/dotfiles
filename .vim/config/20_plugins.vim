@@ -84,7 +84,7 @@ let g:rainbow_active = 1
 
 " -- rtags ---------------------------------------------------------------------
 let g:rtagsAutoLaunchRdm = 1
-let g:rtagsUseLocationList = 0
+let g:rtagsUseLocationList = 1
 let g:rtagsMinCharsForCommandCompletion = 4
 let g:rtagsLog = "~/.vim/rtags-log.txt"
 
