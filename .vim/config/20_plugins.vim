@@ -36,8 +36,10 @@ endfunction
 snoremap <Leader><Tab> <C-[>:call KeepSnip()<CR><Tab>
 
 " -- command-t -----------------------------------------------------------------
-let g:CommandTScanDotDirectories = 1
+let g:CommandTAlwaysShowDotFiles = 1
+let g:CommandTCancelMap = ['<C-[>', '<C-c>']
 let g:CommandTFileScanner = "git"
+let g:CommandTScanDotDirectories = 1
 set wildignore+=*.o
 
 " -- gitgutter -----------------------------------------------------------------
@@ -51,7 +53,7 @@ let g:NERDTreeWinSize = 40
 let g:NERDTreeMinimalUI = 1
 
 " -- powerline -----------------------------------------------------------------
-"  TODO Add a check here to see if powerline is installed
+"  TODO Add a check here to see if powerline is installed on the system
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
 " -- rainbow parentheses -------------------------------------------------------
@@ -85,7 +87,7 @@ let g:rainbow_active = 1
 " -- rtags ---------------------------------------------------------------------
 let g:rtagsAutoLaunchRdm = 1
 let g:rtagsUseLocationList = 1
-let g:rtagsMinCharsForCommandCompletion = 4
+let g:rtagsMinCharsForCommandCompletion = 3
 let g:rtagsLog = "~/.vim/rtags-log.txt"
 
 " -- smooth-scroll -------------------------------------------------------------

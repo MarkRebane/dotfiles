@@ -108,10 +108,12 @@ echo -e "${plt02}This is BASH ${plt03}${BASH_VERSION%.*}"                      \
 echo -e "${plt02}$(date)${no_colour}\n"
 
 if [[ "${DISPLAY%%:0*}" != "" ]]; then
-    hilite=${plt09} # remote machine
+    user_host_colour=${plt09} # remote machine
 else
-    hilite=${plt07} # local machine
+    user_host_colour=${plt07} # local machine
 fi
+path_colour=${plt15}
+git_colour=${plt12}
 
 function rainbow() {
     for i in $(seq -f "%02g" 0 7); do
@@ -129,44 +131,47 @@ function rainbow() {
 GIT_PS1_SHOWDIRTYSTATE="yes"
 GIT_PS1_SHOWSTASHSTATE="yes"
 GIT_PS1_SHOWUNTRACKEDFILES="yes"
+GIT_PS1_SHOWUPSTREAM="verbose name"
 
-function git_ps1() {
-    if [ -r /etc/bash_completion.d/git-prompt ]; then
-        source /etc/bash_completion.d/git-prompt
-        echo -e "$(__git_ps1 "(%s) ")"
-    else
-        ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-        echo -e "("${ref#refs/heads/}")"
-    fi
-}
+# It can be useful to put this in the .git/config of huge repos:
+# [bash]
+#     showDirtyState     = false
+#     showUntrackedFiles = false
 
 function fastprompt() {
     unset PROMPT_COMMAND
+    PS1="\[${debian_chroot:+($debian_chroot)}\]"
     case $TERM in
         # If this is an xterm set the title to:
         # user@host:dir$
         xterm* | rxvt* )
-            PS1="\[${debian_chroot:+($debian_chroot)}${hilite}\]\u@\h$\[{no_colour}\]:\[${plt15}\]\w \$ " ;;
+            PS1="$PS1\[${user_host_colour}\]\u@\h$\[{no_colour}\]:\[${path_colour}\]\w \$ " ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
-            PS1="\[${debian_chroot:+($debian_chroot)}\]\u@\h:\w \$ " ;;
+            PS1="$PS1\u@\h:\w \$ " ;;
     esac
 }
 
 function powerprompt() {
     unset PROMPT_COMMAND
+    PS1='\[${debian_chroot:+($debian_chroot)}\]'
     case ${TERM} in
         # If this is an xterm set the title to:
         # user@host:#:dir(branch)
         # 00:00.00 $
         xterm* | rxvt* )
-            PS1="\[${debian_chroot:+($debian_chroot)}${hilite}\]\u@\h\[${no_colour}\]:\[${plt15}\]\w\[${plt12}\]$(git_ps1)\[${no_colour}\]\$ " ;;
+            PS1="$PS1\[${user_host_colour}\]\u@\h\[${no_colour}\]:\[${path_colour}\]\w"
+            if [ -r /etc/bash_completion.d/git-prompt ]; then
+                #source /etc/bash_completion.d/git-prompt
+                PS1="$PS1"'\['${git_colour}'\]$(__git_ps1 "(%s)")\['${no_colour}'\]'
+            fi ;;
         * )
             # Why are we distinguishing terminals?
             # What can we do with this information?
-            PS1="\[${debian_chroot:+($debian_chroot)}\]\u@\h:\w \$ " ;;
+            PS1="$PS1\u@\h:\w " ;;
     esac
+    PS1="$PS1"'\n\$ '
 }
 
 # Shell Prompt

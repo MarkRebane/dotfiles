@@ -1,5 +1,7 @@
 " -- Vim basic settings
 set autoindent            " copy indent from current line on a new line
+set autoread              " automatically read the contexts of the file, if it
+                          " has been modified outside of the buffer
 set autowrite             " automatically write the contents of the file, if it
                           " has been modified, on various commands
 set background=dark       " dark background
