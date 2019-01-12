@@ -77,7 +77,7 @@ Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
 Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
 Plug 'Rip-Rip/clang_complete'                         " clang snippets
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'} " symbol completion
-"Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
+Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
 " Markdown
 Plug 'godlygeek/tabular', {'for': 'markdown'}       " text alignment
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'} " markdown vim mode

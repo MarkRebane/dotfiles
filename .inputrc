@@ -1,0 +1,87 @@
+$include /etc/inputrc
+
+# Use vi mode for editing in readline.
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-ins-mode-string \x01\033[1;34m\x02(ins) \x01\033[0m\x02
+set vi-cmd-mode-string \x01\033[1;32m\x02(cmd) \x01\033[0m\x02
+
+# Use different cursor shapes depending on the mode.
+# FIXME These are supposed to change the cursor based on your vi mode
+# They definitely don't work in WSL running in cmd.exe
+#$if term=linux
+#    set vi-ins-mode-string \1\e[?0c\2
+#    set vi-cmd-mode-string \1\e[?8c\2
+#$else
+#    set vi-ins-mode-string \1\e[6 q\2
+#    set vi-cmd-mode-string \1\e[2 q\2
+#$endif
+
+# Don't ring the bell
+set bell-style none
+
+# Display completions in colour, configured by the LS_COLORS variable.
+set colored-stats on
+
+# Set auto completion to ignore case.
+set completion-ignore-case on
+
+# Treat - and _ as equivalent when performing case-insensitive completion
+set completion-map-case on
+
+# Replaces the common auto completion prefix with ... if the length is greater
+# than 3. For example:
+#   Screenshot_20190111.png Screenshot_20190112.png
+# will print:
+#   ...1.png ...2.png
+set completion-prefix-display-length 4
+
+# How many results before readline asks the user if they want to display the
+# results during completion
+set completion-query-items 100
+
+# Don't echo ^C after Ctrl+C is pressed
+set echo-control-characters off
+
+# Mark modified history lines with an asterisk *
+set mark-modified-lines on
+
+# Adds a slash to the end of any completion that is a symlink to a directory.
+set mark-symlinked-directories on
+
+# Tab to cycle through complete prefixes
+set menu-complete-display-prefix on
+
+# When the completing word has more than one possible completion, list
+# completions immediately instead of ringing the bell.
+set show-all-if-ambiguous on
+
+# When the completing word has more than one possible completion but no partial
+# completions, list completions immediately instead of ringing the bell.
+set show-all-if-unmodified on
+
+# Append characters that indicate file types reported by `stat` to completions.
+set visible-stats on
+
+$if mode=vi
+## { command-mode }
+set keymap vi-command
+
+# Search history using the string pre-pending the cursor
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+# Bind clear screen
+"\C-l": clear-screen
+
+## { insert-mode }
+set keymap vi-insert
+
+# Search history using the string pre-pending the cursor
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+# Bind clear screen
+"\C-l": clear-screen
+
+$endif

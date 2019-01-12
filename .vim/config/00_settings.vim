@@ -8,6 +8,7 @@ set background=dark       " dark background
 set backspace=2           " allow backspace over indent,eol,ins_start
 let c_space_errors=1      " trailing whitespace and spaces before a <tab>
 set cinoptions=:0,l1,g0,t0,(0,w1,Ws " affects the way cindent re-indents lines
+set complete=.,w,b,u,t,i,kspell " add dictionary items to the complete list
 set encoding=utf-8        " file encoding
 if &termencoding == ""
     let &termencoding = &encoding " use our encoding to set termencoding if it's not already set
@@ -43,6 +44,12 @@ set wildmenu              " enhanced tab completion
 
 " Show a different background colour beyond column 80
 let &colorcolumn=join(range(81,999),",")
+
+" trigger autoread of the file in the buffer if it has changed
+augroup triggerautoread
+    autocmd!
+    autocmd BufEnter,FocusGained * :checktime
+augroup END
 
 " auto-toggle hybrid numbering based on window focus
 augroup numbertoggle
