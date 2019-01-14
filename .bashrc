@@ -368,8 +368,8 @@ if [ -r ${localbashrc} ]; then
     source ${localbashrc}
 else
     echo "Warning: ${localbashrc} not found."
-    echo ''
 fi
+echo ''
 
 PATH=$(remove_duplicates ${PATH})
 PATH=$(remove_invalid_dirs ${PATH})
