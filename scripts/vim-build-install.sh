@@ -21,7 +21,7 @@ set -e # abort script on error
 
 ## Script Install ##############################################################
 
-vim_dir="${HOME}/source/misc/vim"
+vim_dir="${HOME}/source/tools/vim"
 if [ -d ${vim_dir} ]; then
     echo "git pull ${vim_dir}..."
     cd ${vim_dir}
