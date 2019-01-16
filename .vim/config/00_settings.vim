@@ -40,6 +40,11 @@ set t_Co=256              " use 256 colours
 set t_ut=                 " use the current background colour
 set textwidth=80          " max 80 columns
 set ttyfast               " smoother drawing but more data sent to the terminal
+if has("mouse_sgr")
+    set ttymouse=sgr      " enable mouse support past column 220
+else
+    set ttymouse=xterm2   " if vim isn't compiled with sgr support fall back
+endif
 set wildmenu              " enhanced tab completion
 
 " Show a different background colour beyond column 80
