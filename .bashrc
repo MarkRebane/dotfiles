@@ -362,6 +362,7 @@ function setup_local() {
 ## { Local setup & paths }------------------------------------------------------
 
 setup_local ${HOME}/.local/vim
+setup_local ${HOME}/.local/lcov
 # Load local machine's configuration
 localbashrc="${HOME}/.localbashrc"
 if [ -r ${localbashrc} ]; then
