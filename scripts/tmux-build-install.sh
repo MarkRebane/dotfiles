@@ -9,16 +9,16 @@ set -e # abort script on error
 
 ## Script Install ##############################################################
 
-tmux_dir="${HOME}/source/tools/tmux"
-if [ -d ${tmux_dir} ]; then
-    echo "git pull ${tmux_dir}..."
-    cd ${tmux_dir}
+source_dir="${HOME}/source/tools/tmux"
+if [ -d ${source_dir} ]; then
+    echo "git pull ${source_dir}..."
+    cd ${source_dir}
     git pull --rebase
 else
-    mkdir -p ${tmux_dir} && cd ${tmux_dir}
-    echo "git clone --recursive ${tmux_dir}..."
-    git clone --recursive https://github.com/tmux/tmux.git ${tmux_dir}
-    cd ${tmux_dir}
+    mkdir -p ${source_dir} && cd ${source_dir}
+    echo "git clone --recursive ${source_dir}..."
+    git clone --recursive https://github.com/tmux/tmux.git ${source_dir}
+    cd ${source_dir}
 fi
 
 echo "Autogen..."
