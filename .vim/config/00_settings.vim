@@ -45,6 +45,7 @@ if has("mouse_sgr")
 else
     set ttymouse=xterm2   " if vim isn't compiled with sgr support fall back
 endif
+set undofile              " turn on undo persistence between vim sessions
 set wildmenu              " enhanced tab completion
 
 " Show a different background colour beyond column 80

@@ -104,7 +104,7 @@ Plug 'tpope/vim-surround'      " quoting/parenthesising made simple
 Plug 'tpope/vim-vinegar'       " enhance netrw (the built-in directory browser)
 " File Navigation
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " a directory/file explorer
-Plug 'terryma/vim-smooth-scroll'                     " make scrolling more pleasant
+"Plug 'terryma/vim-smooth-scroll'                     " make scrolling more pleasant
 Plug 'wincent/command-t', {
   \  'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
   \ }                                                " fuzzy file navigation
