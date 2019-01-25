@@ -35,6 +35,7 @@ set shiftwidth=4          " indent by 4
 set showcmd               " show commands are they are being typed
 set softtabstop=4         " insert 4 spaces when <tab> is pressed in insert mode
 set smartindent           " do smart indenting when starting a new line
+set smarttab              " uses shiftwidth and expandtab to determine behaviour
 setlocal spell spelllang=en_au " Australian spelling
 set t_Co=256              " use 256 colours
 set t_ut=                 " use the current background colour
@@ -46,6 +47,8 @@ else
     set ttymouse=xterm2   " if vim isn't compiled with sgr support fall back
 endif
 set undofile              " turn on undo persistence between vim sessions
+set undolevels=1000       " maximum number of changes that can be undone
+set undoreload=10000      " save the whole buffer for undo when reloading it
 set wildmenu              " enhanced tab completion
 
 " Show a different background colour beyond column 80
