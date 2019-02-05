@@ -6,6 +6,6 @@ wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.ot
 wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 mkdir -p ~/.local/share/fonts
 mv PowerlineSymbols.otf ~/.local/share/fonts/
-fc-cache -vf ~/.local/share/fonts/
 mkdir -p ~/.config/fontconfig/conf.d
 mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+fc-cache -vf ~/.local/share/fonts/
