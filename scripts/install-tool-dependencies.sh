@@ -7,7 +7,7 @@ autoconf automake pkg-config
 sudo apt -y install libncurses5-dev libgnome2-dev libgnomeui-dev \
 libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev \
 libxpm-dev libxt-dev python python-dev python3 python3-dev ruby-dev lua5.3 \
-liblua5.3-dev libperl-dev git libgpm-dev gpm cmake python-pip
+liblua5.3-dev libperl-dev git libgpm-dev gpm cmake python-pip curl
 
 
 #pip install --user powerline-status
