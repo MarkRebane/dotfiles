@@ -49,10 +49,14 @@ let vim_plug_vim_path = vim_base_dir.'/autoload'
 let vim_plugged = vim_base_dir.'/plugged'
 let vim_config = vim_base_dir.'/config'
 let vim_tmp = vim_base_dir.'/tmp'
+let vim_undodir = vim_base_dir.'/undodir'
 
 sil exe '!mkdir -p '.vim_tmp
+sil exe '!mkdir -p '.vim_undodir
+let &runtimepath.=','.vim_base_dir
 let &backupdir = vim_tmp.'//'
 let &directory = vim_tmp.'//'
+let &undodir = vim_undodir.'//'
 
 let vim_plug_autoinstall = 0
 let vim_plug =
