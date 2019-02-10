@@ -36,14 +36,14 @@ set showcmd               " show commands are they are being typed
 set softtabstop=4         " insert 4 spaces when <tab> is pressed in insert mode
 set smartindent           " do smart indenting when starting a new line
 set smarttab              " uses shiftwidth and expandtab to determine behaviour
-setlocal spell spelllang=en_au " Australian spelling
+setlocal nospell spelllang=en_au " Australian spelling, default off, toggle <F2>
 set t_Co=256              " use 256 colours
 set t_ut=                 " use the current background colour
 set textwidth=80          " max 80 columns
 set ttyfast               " smoother drawing but more data sent to the terminal
 if has("mouse_sgr")
     set ttymouse=sgr      " enable mouse support past column 220
-else
+elseif has("mouse_xterm")
     set ttymouse=xterm2   " if vim isn't compiled with sgr support fall back
 endif
 set undofile              " turn on undo persistence between vim sessions
@@ -53,6 +53,9 @@ set wildmenu              " enhanced tab completion
 
 " Show a different background colour beyond column 80
 let &colorcolumn=join(range(81,999),",")
+
+" Alternatively, only show a different background colour when we exceed column 80
+au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 
 " trigger autoread of the file in the buffer if it has changed
 augroup triggerautoread
