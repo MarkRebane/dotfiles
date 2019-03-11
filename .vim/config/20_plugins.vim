@@ -38,9 +38,13 @@ snoremap <Leader><Tab> <C-[>:call KeepSnip()<CR><Tab>
 " -- command-t -----------------------------------------------------------------
 let g:CommandTAlwaysShowDotFiles = 1
 let g:CommandTCancelMap = ['<C-[>', '<C-c>']
-let g:CommandTFileScanner = "git"
+let g:CommandTFileScanner = "find"
+let g:CommandTInputDebounce = 5
+let g:CommandTMaxCacheDirectories = 5
+let g:CommandTMaxFiles = 400000
 let g:CommandTScanDotDirectories = 1
-set wildignore+=*.o
+let g:CommandTTraverseSCM = 'pwd'
+set wildignore+=*.o,*.obj,*/.git,
 
 " -- gitgutter -----------------------------------------------------------------
 set updatetime=1000 " ms inactivity before update gitgutter and write swapfile
