@@ -108,14 +108,14 @@ Plug 'tpope/vim-surround'      " quoting/parenthesising made simple
 Plug 'tpope/vim-vinegar'       " enhance netrw (the built-in directory browser)
 " File Navigation
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " a directory/file explorer
-"Plug 'terryma/vim-smooth-scroll'                     " make scrolling more pleasant
 Plug 'wincent/command-t', {
   \  'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
   \ }                                                " fuzzy file navigation
 " Vim Helpers
-Plug 'airblade/vim-gitgutter'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}     " undo history visualiser
+Plug 'airblade/vim-gitgutter'                    " shows a git diff in the gutter
+Plug 'benmills/vimux'                            " plugin to interact with tmux
+Plug 'christoomey/vim-tmux-navigator'            " seamless navigation between tmux panes and vim splits
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'} " undo history visualiser
 Plug 'powerline/powerline'
 Plug 'vim-scripts/Tabmerge'
 Plug 'wesQ3/vim-windowswap'

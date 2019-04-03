@@ -90,7 +90,7 @@ let g:rainbow_active = 1
 
 " -- rtags ---------------------------------------------------------------------
 let g:rtagsAutoLaunchRdm = 1
-let g:rtagsUseLocationList = 1
+let g:rtagsUseLocationList = 0
 let g:rtagsMinCharsForCommandCompletion = 3
 let g:rtagsLog = "~/.vim/rtags-log.txt"
 
@@ -116,4 +116,5 @@ let g:ycm_extra_conf_vim_data = ['getcwd()']
 let g:ycm_max_diagnostics_to_display = 1000
 noremap <Leader>n :lne<CR>
 noremap <Leader>p :lp<CR>
+noremap <Leader>l :ll<CR>
 nnoremap <Leader>ji :YcmCompleter GetType<CR>

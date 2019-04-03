@@ -25,6 +25,7 @@ set list                  " show tabs and trailing spaces
 set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
 set matchpairs+=<:>       " use % to jump between angle brackets <,>
 set mouse=a               " enable the mouse in all modes
+set nojoinspaces          " only one space after '.', '?', '!' when joining
 set nostartofline         " don't move to start of the line for some commands
 set nowrapscan            " don't wrap at the end of the file when searching
 set number relativenumber " hybrid line numbers: absolute + relative
