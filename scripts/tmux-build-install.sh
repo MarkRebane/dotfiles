@@ -23,8 +23,6 @@ fi
 
 echo "Autogen..."
 sh autogen.sh
-echo "Cleaning-up previous build..."
-make distclean
 echo "Configuring..."
 ./configure --enable-utempter
 echo "make..."
