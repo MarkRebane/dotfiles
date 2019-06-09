@@ -1,54 +1,53 @@
 #!/usr/bin/env bash
-# Run this from the scripts directory.
 
 date=$(date --rfc-3339='seconds')
+source_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-bashrc="$HOME/.bashrc"
-if [ -f ~/.bashrc ] ; then
-  mv ~/.bashrc ~/"dot-bashrc-$date"
+if [[ -f ~/.bashrc && ! -h ~/.bashrc ]] ; then
+  mv "$HOME/.bashrc" "$HOME/dot-bashrc-$date"
 fi
-if [ ! -h ~/.bashrc ] ; then
-  ln -s $(readlink -f ../.bashrc) ~/.bashrc
-fi
-
-if [ -f ~/.bash_logout ] ; then
-  mv ~/.bash_logout ~/"dot-bash_logout-$date"
-fi
-if [ ! -h ~/.bash_logout ] ; then
-  ln -s $(readlink -f ../.bash_logout) ~/.bash_logout
+if [[ ! -h ~/.bashrc || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.bashrc" "$HOME/.bashrc"
 fi
 
-if [ -f ~/.inputrc ] ; then
-  mv ~/.inputrc ~/"dot-inputrc-$date"
+if [[ -f ~/.bash_logout && ! -h ~/.bash_logout ]] ; then
+  mv "$HOME/.bash_logout" "$HOME/dot-bash_logout-$date"
 fi
-if [ ! -h ~/.inputrc ] ; then
-  ln -s $(readlink -f ../.inputrc) ~/.inputrc
-fi
-
-if [ -f ~/.profile ] ; then
-  mv ~/.profile ~/"dot-profile-$date"
-fi
-if [ ! -h ~/.profile ] ; then
-  ln -s $(readlink -f ../.profile) ~/.profile
+if [[ ! -h ~/.bash_logout || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.bash_logout" "$HOME/.bash_logout"
 fi
 
-if [ -f ~/.tmux.conf ] ; then
-  mv ~/.tmux.conf ~/"dot-tmux.conf-$date"
+if [[ -f ~/.inputrc && ! -h ~/.inputrc ]] ; then
+  mv "$HOME/.inputrc" "$HOME/dot-inputrc-$date"
 fi
-if [ ! -h ~/.tmux.conf ] ; then
-  ln -s $(readlink -f ../.tmux.conf) ~/.tmux.conf
-fi
-
-if [ -f ~/.vimrc ] ; then
-  mv ~/.vimrc ~/"dot-tmux.conf-$date"
-fi
-if [ ! -h ~/.vimrc ] ; then
-  ln -s $(readlink -f ../.vimrc) ~/.vimrc 
+if [[ ! -h ~/.inputrc || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.inputrc" "$HOME/.inputrc"
 fi
 
-if [ -d ~/.vim ] ; then
-  mv ~/.vim ~/"dot-vim-$date"
+if [[ -f ~/.profile && ! -h ~/.profile ]] ; then
+  mv "$HOME/.profile" "$HOME/dot-profile-$date"
 fi
-if [ ! -h ~/.vim ] ; then
-  ln -s $(readlink -f ../.vim) ~/.vim
+if [[ ! -h ~/.profile || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.profile" "$HOME/.profile"
+fi
+
+if [[ -f ~/.tmux.conf && ! -h ~/.tmux.conf ]] ; then
+  mv "$HOME/.tmux.conf" "$HOME/dot-tmux.conf-$date"
+fi
+if [[ ! -h ~/.tmux.conf || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.tmux.conf" "$HOME/.tmux.conf"
+fi
+
+if [[ -f ~/.vimrc && ! -h ~/.vimrc ]] ; then
+  mv "$HOME/.vimrc" "$HOME/dot-vimrc-$date"
+fi
+if [[ ! -h ~/.vimrc || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.vimrc" "$HOME/.vimrc"
+fi
+
+if [[ -d ~/.vim && ! -h ~/.vim ]] ; then
+  mv "$HOME/.vim" "$HOME/dot-vim-$date"
+fi
+if [[ ! -h ~/.vim || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.vim" "$HOME/.vim"
 fi
