@@ -56,7 +56,8 @@ set wildmenu              " enhanced tab completion
 let &colorcolumn=join(range(81,999),",")
 
 " Alternatively, only show a different background colour when we exceed column 80
-au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+au ColorScheme * highlight ColumnGroup ctermbg=red guibg=red ctermfg=white
+au BufEnter,FocusGained * let w:m2=matchadd('ColumnGroup', '\%>100v.\+', -1)
 
 " trigger autoread of the file in the buffer if it has changed
 augroup triggerautoread

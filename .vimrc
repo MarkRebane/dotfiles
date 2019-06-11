@@ -82,14 +82,15 @@ Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
 Plug 'Rip-Rip/clang_complete'                         " clang snippets
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'} " symbol completion
 Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
-Plug 'gilligan/vim-lldb'                              " lldb debugger integration
 " Markdown
-Plug 'godlygeek/tabular', {'for': 'markdown'}       " text alignment
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'} " markdown vim mode
+"Plug 'godlygeek/tabular'       " text alignment
+"Plug 'plasticboy/vim-markdown' " markdown vim mode
+Plug 'tpope/vim-markdown' " markdown vim mode
 " Programming
 Plug 'ervandew/supertab'       " <tab> to perform completions
 "Plug 'sheerun/vim-polyglot'    " collection of language packs
-"Plug 'vim-syntastic/syntastic' " syntax checking for many languages
+"Plug 'w0rp/ale'        " Asynchronous Lint Engine, with Language Server Protocol
+"Plug 'vim-syntastic/syntastic', {'for': 'markdown'} " syntax checking for many languages
 " Colour schemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim', {'as': 'dracula'}
@@ -100,6 +101,7 @@ Plug 'nanotech/jellybeans.vim', {'tag': 'v1.6'}
 Plug 'luochen1990/rainbow'
 " Tim Pope plugins
 Plug 'tpope/vim-abolish'       " abbreviation, substitution, and coercion
+Plug 'tpope/vim-commentary'    " [un]comment stuff
 Plug 'tpope/vim-dispatch'      " asynchronous build and test dispatcher
 Plug 'tpope/vim-fugitive'      " a Git wrapper
 Plug 'tpope/vim-obsession'     " continuously updated session files
