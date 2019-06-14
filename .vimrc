@@ -134,3 +134,4 @@ endif
 for filename in sort(split(glob(vim_config . '/*.vim'), '\n'))
     execute 'source ' . filename
 endfor
+execute 'source ~/.vimrc.local'
