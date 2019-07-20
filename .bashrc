@@ -167,10 +167,12 @@ fi
 
 ## { MotD }---------------------------------------------------------------------
 
-echo -e "${plt02}This is BASH ${plt03}${BASH_VERSION%.*}"                      \
-    "${plt02}- DISPLAY on${plt03}${DISPLAY}"                                   \
-    "${plt02}- TERM running ${plt03}${TERM}${no_colour}"
-echo -e "${plt02}$(date)${no_colour}"
+function print_motd() {
+    echo -e "${plt02}This is BASH ${plt03}${BASH_VERSION%.*}"                  \
+            "${plt02}- DISPLAY on ${plt03}${DISPLAY}"                          \
+            "${plt02}- TERM running ${plt03}${TERM}${no_colour}"               \
+            "\n${plt02}$(date)${no_colour}"
+}
 
 if [[ "${DISPLAY%%:0*}" != "" ]]; then
     user_host_colour=${plt09} # remote machine
@@ -369,9 +371,10 @@ if [ -r ${localbashrc} ]; then
 else
     echo "Warning: ${localbashrc} not found."
 fi
-echo ''
 
 PATH=$(remove_duplicates ${PATH})
 PATH=$(remove_invalid_dirs ${PATH})
 LD_LIBRARY_PATH=$(remove_duplicates ${LD_LIBRARY_PATH})
 LD_LIBRARY_PATH=$(remove_invalid_dirs ${LD_LIBRARY_PATH})
+
+print_motd
