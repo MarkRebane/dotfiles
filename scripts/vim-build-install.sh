@@ -6,7 +6,7 @@ set -e # abort script on error
 # 1. Install dependencies
 #  $ sudo apt -y install libncurses5-dev libgnome2-dev libgnomeui-dev \
 #    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev \
-#    libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.3 \
+#    libxpm-dev libxt-dev python-dev python3-dev python3-venv ruby-dev lua5.3 \
 #    liblua5.3-dev libperl-dev git libgpm-dev gpm cmake
 
 # 2. Create Symlinks if lua 5.3 isn't detected
