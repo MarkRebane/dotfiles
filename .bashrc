@@ -144,11 +144,6 @@ if [ -x /usr/bin/dircolors ]; then
     # Colour themes for LS_COLORS: https://github.com/sharkdp/vivid
 fi
 
-# Add an "alert" alias for long running commands.
-#  requires $ sudo apt install libnotify-bin
-# Usage: $ sleep 10;alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -362,6 +357,7 @@ function setup_local() {
 
 ## { Local setup & paths }------------------------------------------------------
 
+setup_local ${HOME}/.local
 setup_local ${HOME}/.local/vim
 setup_local ${HOME}/.local/lcov
 # Load local machine's configuration
