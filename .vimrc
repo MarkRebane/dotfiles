@@ -75,6 +75,9 @@ if exists('vim_plug_vim_path')
     endif
 endif
 
+" Hack to make python3 load before python2.
+:python3 import os
+
 call plug#begin(vim_plugged)
 " C++
 Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
@@ -85,12 +88,13 @@ Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
 " Markdown
 "Plug 'godlygeek/tabular'       " text alignment
 "Plug 'plasticboy/vim-markdown' " markdown vim mode
-Plug 'tpope/vim-markdown' " markdown vim mode
+Plug 'tpope/vim-markdown'       " markdown vim mode
 " Programming
-Plug 'ervandew/supertab'       " <tab> to perform completions
+Plug 'ervandew/supertab'        " <tab> to perform completions
 "Plug 'sheerun/vim-polyglot'    " collection of language packs
-"Plug 'w0rp/ale'        " Asynchronous Lint Engine, with Language Server Protocol
+Plug 'w0rp/ale'                 " Asynchronous Lint Engine, with Language Server Protocol
 "Plug 'vim-syntastic/syntastic', {'for': 'markdown'} " syntax checking for many languages
+Plug 'psf/black', {'for': 'python'} " The uncompromising Python code formatter
 " Colour schemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim', {'as': 'dracula'}

@@ -8,3 +8,6 @@ noremap <F2> :set spell!<cr>
 
 " turn off search highlight, will turn on again upon search
 nnoremap <Leader><Space> :nohlsearch<CR>
+
+" run the current python file with python3
+nnoremap <F5> :call VimuxRunCommand("clear; python3 " . bufname("%"))<CR>
