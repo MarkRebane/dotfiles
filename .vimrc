@@ -100,7 +100,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'morhetz/gruvbox'
 Plug 'jacoborus/tender.vim'
-Plug 'nanotech/jellybeans.vim', {'tag': 'v1.6'}
+Plug 'nanotech/jellybeans.vim', {'tag': 'v1.7'}
 " Rainbow braces
 Plug 'luochen1990/rainbow'
 " Tim Pope plugins
