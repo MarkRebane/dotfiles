@@ -3,21 +3,7 @@ set -e # abort script on error
 
 ## Prerequisites ###############################################################
 
-# 1. Install dependencies
-#  $ sudo apt -y install libncurses5-dev libgnome2-dev libgnomeui-dev \
-#    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev \
-#    libxpm-dev libxt-dev python-dev python3-dev python3-venv ruby-dev lua5.3 \
-#    liblua5.3-dev libperl-dev git libgpm-dev gpm cmake
-
-# 2. Create Symlinks if lua 5.3 isn't detected
-#  $ sudo ln -s /usr/include/lua5.3 /usr/local/include/lua
-#  $ sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.3.so /usr/local/lib/liblua.so
-#  $ sudo ln -s /usr/bin/lua5.3 /usr/local/bin/lua
-
-# 3. Remove old vim installs
-#  $ sudo apt -y remove vim vim-runtime gvim && \
-#    sudo apt -y autoremove && \
-#    sudo apt -y autoclean
+# Install dependencies: # ${DOTFILES}/scripts/install-tool-dependencies.sh
 
 ## Script Install ##############################################################
 
@@ -33,28 +19,31 @@ else
     cd ${vim_dir}
 fi
 
-# TODO if these don't exist, look for environment variables,
-# and if those don't exist, error
-python2_config="/usr/lib/python2.7/config-x86_64-linux-gnu"
-python3_config="/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu"
 lua_prefix="/usr"
-if [ ! -d ${python2_config} ]; then
-    echo "Error! Python2 config not found: ${python2_config}"
-    exit 1
-fi
-if [ ! -d ${python3_config} ]; then
-    echo "Error! Python3 config not found: ${python3_config}"
-    python3_config="/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
-    if [ ! -d ${python3_config} ]; then
-        echo "Error! Python3 config not found: ${python3_config}"
-        exit 1
-    else
-        echo "Falling back to: ${python3_config}"
-    fi
-fi
 if [ ! -d ${lua_prefix} ]; then
     echo "Error! Lua prefix directory not found: ${lua_prefix}"
+    # TODO Look for environment variables.
     exit 1
+fi
+
+python2_config_dir="/usr/lib/python2.7/config-x86_64-linux-gnu"
+if [ ! -d ${python2_config_dir} ]; then
+    echo "Error! Python2.7 config not found: ${python2_config}"
+    exit 1
+fi
+
+python3_config_dir="/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu"
+if [ ! -d ${python3_config_dir} ]; then
+    echo "Warning! Python3.6 config not found: ${python3_config_dir}"
+    echo "Falling back to Python3.5..."
+    python3_config_dir="/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
+    if [ ! -d ${python3_config_dir} ]; then
+        echo "Error! Python3.5 config not found: ${python3_config_dir}"
+        # TODO Look for environment variables.
+        exit 1
+    else
+        echo "Falling back to: ${python3_config_dir}"
+    fi
 fi
 
 echo "Cleaning-up previous build..."
@@ -72,8 +61,8 @@ echo "Configuring..."
     --enable-pythoninterp=yes \
     --enable-python3interp=yes \
     --with-lua_prefix=${lua_prefix} \
-    --with-python-config-dir=${python2_config} \
-    --with-python3-config-dir=${python3_config} \
+    --with-python-config-dir=${python2_config_dir} \
+    --with-python3-config-dir=${python3_config_dir} \
     --enable-fail-if-missing \
     --prefix=${HOME}/.local/vim
 

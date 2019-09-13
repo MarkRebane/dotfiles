@@ -3,9 +3,7 @@ set -e # abort script on error
 
 ## Prerequisites ###############################################################
 
-# 1. Install dependencies
-#  $ sudo apt -y install libevent-dev libncurses5-dev libutempter-dev \
-#    autoconf automake pkg-config 
+# Install dependencies: # ${DOTFILES}/scripts/install-tool-dependencies.sh
 
 ## Script Install ##############################################################
 

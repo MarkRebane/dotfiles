@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
-# requires python and pip
-#  $ sudo apt install python python3 pip
-pip install --user powerline-status
+set -e
+
+## Prerequisites ###############################################################
+
+# Install dependencies: # ${DOTFILES}/scripts/install-tool-dependencies.sh
+
+## Script Install ##############################################################
+
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
 wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 mkdir -p ~/.local/share/fonts
