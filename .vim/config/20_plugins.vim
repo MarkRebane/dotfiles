@@ -50,10 +50,11 @@ let g:CommandTMaxCacheDirectories = 5
 let g:CommandTMaxFiles = 400000
 let g:CommandTScanDotDirectories = 1
 let g:CommandTTraverseSCM = 'pwd'
-set wildignore+=*.o,*.obj,*/.git,
+set wildignore+=*.o,*.obj,*/.git
 
 " -- gitgutter -----------------------------------------------------------------
 set updatetime=1000 " ms inactivity before update gitgutter and write swapfile
+nnoremap <Leader>ggt :GitGutterToggle<CR>
 
 " -- NERDTree ------------------------------------------------------------------
 noremap <C-n> :NERDTreeToggle<CR>

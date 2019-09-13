@@ -84,15 +84,15 @@ Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
 Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
 Plug 'Rip-Rip/clang_complete'                         " clang snippets
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'} " symbol completion
-Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
+"Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
 " Markdown
-"Plug 'godlygeek/tabular'       " text alignment
-"Plug 'plasticboy/vim-markdown' " markdown vim mode
-Plug 'tpope/vim-markdown'       " markdown vim mode
+"Plug 'godlygeek/tabular'           " text alignment
+"Plug 'plasticboy/vim-markdown'     " markdown vim mode
+Plug 'tpope/vim-markdown'           " markdown vim mode
 " Programming
-Plug 'ervandew/supertab'        " <tab> to perform completions
-"Plug 'sheerun/vim-polyglot'    " collection of language packs
-Plug 'w0rp/ale'                 " Asynchronous Lint Engine, with Language Server Protocol
+Plug 'ervandew/supertab'            " <tab> to perform completions
+"Plug 'sheerun/vim-polyglot'        " collection of language packs
+Plug 'w0rp/ale', {'for': 'python'}  " Asynchronous Lint Engine, with Language Server Protocol
 "Plug 'vim-syntastic/syntastic', {'for': 'markdown'} " syntax checking for many languages
 Plug 'psf/black', {'for': 'python'} " The uncompromising Python code formatter
 " Colour schemes
