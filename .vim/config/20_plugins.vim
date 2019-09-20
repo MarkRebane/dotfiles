@@ -65,7 +65,7 @@ let g:NERDTreeMinimalUI = 1
 
 " -- powerline -----------------------------------------------------------------
 "  TODO Add a check here to see if powerline is installed on the system
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+set rtp+=$HOME/.local/lib/python3.5/site-packages/powerline/bindings/vim/
 
 " -- rainbow parentheses -------------------------------------------------------
 noremap <Leader>wt :RainbowToggle<CR>
