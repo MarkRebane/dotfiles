@@ -353,14 +353,20 @@ function setup_local() {
     if [ -d "${base}/python2.7/site-packages" ]; then
         export PYTHONPATH="${base}/python2.7/site-packages:${PYTHONPATH}"
     fi
+
+    if [ -d "${base}/python3.5/site-packages" ]; then
+        export PYTHONPATH="${base}/python3.5/site-packages:${PYTHONPATH}"
+    fi
 }
 
 ## { Local setup & paths }------------------------------------------------------
 
 setup_local ${HOME}/.local
+setup_local ${HOME}/.local/lib
 setup_local ${HOME}/.local/emacs
 setup_local ${HOME}/.local/lcov
 setup_local ${HOME}/.local/vim
+
 # Load local machine's configuration
 localbashrc="${HOME}/.bashrc.local"
 if [ -r ${localbashrc} ]; then
