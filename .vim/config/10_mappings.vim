@@ -10,4 +10,4 @@ noremap <F2> :set spell!<cr>
 nnoremap <Leader><Space> :nohlsearch<CR>
 
 " run the current python file with python3
-nnoremap <F5> :call VimuxRunCommand("clear; python3 " . bufname("%"))<CR>
+nnoremap <F5> :wa<CR>:call VimuxRunCommand("clear; python3 " . expand("%:p"))<CR>

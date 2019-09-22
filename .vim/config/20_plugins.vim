@@ -11,7 +11,7 @@ colorscheme jellybeans
 let g:black_fast = 0
 let g:black_linelength = 88
 let g:black_skip_string_normalization = 0
-au BufWrite *.py execute ':Black'
+au BufWritePre *.py execute ':Black'
 
 " -- clang_complete ------------------------------------------------------------
 let g:clang_auto_select = 1    " automatically select the first entry
