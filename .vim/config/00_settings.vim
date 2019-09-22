@@ -21,6 +21,7 @@ set hlsearch              " highlight all matches of a search pattern
 set ignorecase smartcase  " case insensitive search unless caps are used
 set incsearch             " incremental results as a search is being typed
 set laststatus=2          " always show status line
+set lazyredraw            " don't redraw the screen during a macro
 set list                  " show tabs and trailing spaces
 set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
 set matchpairs+=<:>       " use % to jump between angle brackets <,>
