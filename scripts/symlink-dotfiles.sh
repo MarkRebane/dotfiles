@@ -31,6 +31,13 @@ if [[ ! -h ~/.profile || $1 = "--force" ]] ; then
   ln -snf "$source_dir/.profile" "$HOME/.profile"
 fi
 
+if [[ -f ~/.spacemacs && ! -h ~/.spacemacs ]] ; then
+  mv "$HOME/.spacemacs" "$HOME/dot-spacemacs-$date"
+fi
+if [[ ! -h ~/.spacemacs || $1 = "--force" ]] ; then
+  ln -snf "$source_dir/.spacemacs" "$HOME/.spacemacs"
+fi
+
 if [[ -f ~/.tmux.conf && ! -h ~/.tmux.conf ]] ; then
   mv "$HOME/.tmux.conf" "$HOME/dot-tmux.conf-$date"
 fi
