@@ -366,6 +366,7 @@ setup_local ${HOME}/.local/lib
 setup_local ${HOME}/.local/emacs
 setup_local ${HOME}/.local/lcov
 setup_local ${HOME}/.local/vim
+setup_local ${HOME}/.local/llvm
 setup_local /usr/local
 
 # Load local machine's configuration
