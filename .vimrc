@@ -61,7 +61,7 @@ let &undodir = vim_undodir.'//'
 let vim_plug_autoinstall = 0
 let vim_plug =
   \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-if exists('vim_plug_vim_path') 
+if exists('vim_plug_vim_path')
     let vim_plug_vim = expand(vim_plug_vim_path . '/plug.vim')
     if !filereadable(vim_plug_vim)
         if exepath('curl') != ""
@@ -108,7 +108,7 @@ Plug 'tpope/vim-abolish'       " abbreviation, substitution, and coercion
 Plug 'tpope/vim-commentary'    " [un]comment stuff
 Plug 'tpope/vim-dispatch'      " asynchronous build and test dispatcher
 Plug 'tpope/vim-fugitive'      " a Git wrapper
-Plug 'tpope/vim-obsession'     " continuously updated session files
+Plug 'tpope/vim-obsession'     " continuously updated session files ':Obsess'
 Plug 'tpope/vim-projectionist' " granular project configuration
 Plug 'tpope/vim-repeat'        " enable repeating supported plugin maps with '.'
 Plug 'tpope/vim-surround'      " quoting/parenthesising made simple
