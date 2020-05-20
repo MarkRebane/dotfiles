@@ -270,8 +270,8 @@ function loc() {
     fi
 }
 
-# Print all 256 colours
-function rainbow256() {
+# Print all 16 colours
+function rainbow16() {
     for i in $(seq -f "%02g" 0 7); do
         local palette=plt${i}
         printf "{${!palette}${palette}${no_colour}}, "

@@ -9,7 +9,7 @@ colorscheme jellybeans
 
 " -- black ---------------------------------------------------------------------
 let g:black_fast = 0
-let g:black_linelength = 88
+let g:black_linelength = 79
 let g:black_skip_string_normalization = 0
 au BufWritePre *.py execute ':Black'
 

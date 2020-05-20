@@ -32,18 +32,21 @@ if [ ! -d ${python2_config_dir} ]; then
     exit 1
 fi
 
-python3_config_dir="/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu"
-if [ ! -d ${python3_config_dir} ]; then
-    echo "Warning! Python3.6 config not found: ${python3_config_dir}"
-    echo "Falling back to Python3.5..."
-    python3_config_dir="/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
-    if [ ! -d ${python3_config_dir} ]; then
-        echo "Error! Python3.5 config not found: ${python3_config_dir}"
-        # TODO Look for environment variables.
-        exit 1
-    else
-        echo "Falling back to: ${python3_config_dir}"
-    fi
+python3_7_config_dir="/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu"
+python3_6_config_dir="/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu"
+python3_5_config_dir="/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
+if [ ! -d ${python3_7_config_dir} ]; then
+    echo "Python3.7 config found: ${python3_7_config_dir}"
+    python3_config_dir=${python3_7_config_dir}
+elif [ ! -d ${python3_6_config_dir} ]; then
+    echo "Python3.6 config found: ${python3_6_config_dir}"
+    python3_config_dir=${python3_6_config_dir}
+elif [ ! -d ${python3_config_dir} ]; then
+    echo "Python3.5 config found: ${python3_5_config_dir}"
+    python3_config_dir=${python3_5_config_dir}
+else
+    echo "Error: couldn't find python3, aborting."
+    exit 1
 fi
 
 echo "Cleaning-up previous build..."
@@ -67,6 +70,6 @@ echo "Configuring..."
     --prefix=${HOME}/.local/vim
 
 echo "make..."
-make -j$(($(nproc)+1)) VIMRUNTIMEDIR=${HOME}/.local/vim/share/vim/vim81
+make -j$(($(nproc)-1)) VIMRUNTIMEDIR=${HOME}/.local/vim/share/vim/vim82
 echo "make install..."
 sudo make install

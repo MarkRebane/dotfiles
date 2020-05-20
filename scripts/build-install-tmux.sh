@@ -24,6 +24,6 @@ sh autogen.sh
 echo "Configuring..."
 ./configure --enable-utempter
 echo "make..."
-make -j$(($(nproc)+1))
+make -j$(($(nproc)-1))
 echo "make install..."
 sudo make install

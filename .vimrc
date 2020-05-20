@@ -76,7 +76,7 @@ if exists('vim_plug_vim_path')
 endif
 
 " Hack to make python3 load before python2.
-:python3 import os
+":python3 import os
 
 call plug#begin(vim_plugged)
 " C++
