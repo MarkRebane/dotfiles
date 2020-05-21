@@ -1,22 +1,3 @@
-.bashrc_aliases
-.cache
-.config
-.fonts
-.lesshst
-.local
-.npm
-.ssh
-.stack
-.sudo_as_admin_successful
-.tmux
-.viminfo*
 .vim/autoload
 .vim/plugged
-.wget-hsts
-build
-source
-*_history
-*old
-
-# ignore everything for now... I'll think about what I want to do long term
-*
+.vim
