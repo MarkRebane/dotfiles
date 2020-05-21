@@ -3,7 +3,7 @@ set -e
 
 sudo apt -y update
 sudo apt -y install autoconf automake bash-completion bison curl cmake         \
-pkg-config git git-extras git-lfs                                              \
+pkg-config git git-extras git-lfs tig                                          \
 python3 python3-dev python3-pip python3-venv                                   \
 libevent-dev libutempter-dev libncurses5-dev                                   \
 libgtk2.0-dev libatk1.0-dev libcairo2-dev libx11-dev                           \
