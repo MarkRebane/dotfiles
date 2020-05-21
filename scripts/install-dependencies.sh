@@ -14,10 +14,10 @@ ruby-dev
 # pip3 install --user black
 
 # Powerline status bar used by the Vim configuration.
-pip3 install --user powerline-status
+# pip3 install --user powerline-status
 
 # Create Symlinks if lua 5.3 isn't detected
-# TODO detect 5.3
-sudo ln -s /usr/include/lua5.3 /usr/local/include/lua
-sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.3.so /usr/local/lib/liblua.so
-sudo ln -s /usr/bin/lua5.3 /usr/local/bin/lua
+# TODO: Check if these are still needed in modern distros.
+# sudo ln -s /usr/include/lua5.3 /usr/local/include/lua
+# sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.3.so /usr/local/lib/liblua.so
+# sudo ln -s /usr/bin/lua5.3 /usr/local/bin/lua

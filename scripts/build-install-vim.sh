@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e # abort script on error
+set -e
 
 ## Prerequisites ###############################################################
 
@@ -26,11 +26,11 @@ if [ ! -d ${lua_prefix} ]; then
     exit 1
 fi
 
-python2_config_dir="/usr/lib/python2.7/config-x86_64-linux-gnu"
-if [ ! -d ${python2_config_dir} ]; then
-    echo "Error! Python2.7 config not found: ${python2_config}"
-    exit 1
-fi
+# python2_config_dir="/usr/lib/python2.7/config-x86_64-linux-gnu"
+# if [ ! -d ${python2_config_dir} ]; then
+#     echo "Error! Python2.7 config not found: ${python2_config}"
+#     exit 1
+# fi
 
 python3_7_config_dir="/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu"
 python3_6_config_dir="/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu"
@@ -49,9 +49,7 @@ else
     exit 1
 fi
 
-echo "Cleaning-up previous build..."
 make distclean
-echo "Configuring..."
 ./configure --with-features=huge \
     --enable-cscope \
     --enable-gpm \
@@ -61,15 +59,13 @@ echo "Configuring..."
     --enable-luainterp=yes \
     --enable-rubyinterp=yes \
     --enable-perlinterp=yes \
-    --enable-pythoninterp=yes \
+\ #    --enable-pythoninterp=yes \
     --enable-python3interp=yes \
     --with-lua_prefix=${lua_prefix} \
-    --with-python-config-dir=${python2_config_dir} \
+\ #    --with-python-config-dir=${python2_config_dir} \
     --with-python3-config-dir=${python3_config_dir} \
     --enable-fail-if-missing \
     --prefix=${HOME}/.local/vim
 
-echo "make..."
 make -j$(($(nproc)-1)) VIMRUNTIMEDIR=${HOME}/.local/vim/share/vim/vim82
-echo "make install..."
-sudo make install
+make install
