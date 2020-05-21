@@ -3,7 +3,10 @@
 # for examples
 
 # If not running interactively, don't do anything
-[[ "$-" != *i* ]] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 ## { Basics }-------------------------------------------------------------------
 
@@ -118,7 +121,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias less='less -R'
     alias tmux='tmux -2'
-    alias vimless='.local/vim/share/vim/vim81/macros/less.sh'
 
     #LS_COLORS use dircolors(1) to set it
     eval $(dircolors -p | perl -pe '' | dircolors -)
@@ -129,7 +131,6 @@ if [ -x /usr/bin/dircolors ]; then
     # GREP_COLORS
     #  $ man grep
     # Generate a colours string at: https://dom.hastin.gs/files/grep-colors/
-    #export GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36';
     export GREP_COLORS='ms=01;33:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36';
 
     # Set colours for less.
@@ -354,20 +355,17 @@ function setup_local() {
         export PYTHONPATH="${base}/python2.7/site-packages:${PYTHONPATH}"
     fi
 
-    if [ -d "${base}/python3.5/site-packages" ]; then
-        export PYTHONPATH="${base}/python3.5/site-packages:${PYTHONPATH}"
+    if [ -d "${base}/python3.8/site-packages" ]; then
+        export PYTHONPATH="${base}/python3.8/site-packages:${PYTHONPATH}"
     fi
 }
 
 ## { Local setup & paths }------------------------------------------------------
 
 setup_local ${HOME}/.local
-setup_local ${HOME}/.local/lib
-setup_local ${HOME}/.local/emacs
-setup_local ${HOME}/.local/lcov
-setup_local ${HOME}/.local/vim
-setup_local ${HOME}/.local/llvm
-setup_local /usr/local
+for file in ${HOME}/.local/*; do
+    setup_local ${file}
+done
 
 # Load local machine's configuration
 localbashrc="${HOME}/.bashrc.local"
