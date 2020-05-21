@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
 ## Prerequisites ###############################################################
@@ -8,15 +8,15 @@ set -e
 ## Script Install ##############################################################
 
 vim_dir="${HOME}/source/tools/vim"
-if [ -d ${vim_dir} ]; then
+if [ -d "${vim_dir}" ]; then
     echo "git pull ${vim_dir}..."
-    cd ${vim_dir}
+    cd "${vim_dir}"
     git pull --rebase
 else
-    mkdir -p ${vim_dir} && cd ${vim_dir}
+    mkdir -p "${vim_dir}" && cd "${vim_dir}"
     echo "git clone --recursive ${vim_dir}..."
-    git clone --recursive https://github.com/vim/vim.git ${vim_dir}
-    cd ${vim_dir}
+    git clone --recursive https://github.com/vim/vim.git "${vim_dir}"
+    cd "${vim_dir}"
 fi
 
 lua_prefix="/usr"
@@ -62,10 +62,10 @@ make distclean
 \ #    --enable-pythoninterp=yes \
     --enable-python3interp=yes \
     --with-lua_prefix=${lua_prefix} \
-\ #    --with-python-config-dir=${python2_config_dir} \
+\ #    --with-python-config-dir="${python2_config_dir}" \
     --with-python3-config-dir=${python3_config_dir} \
     --enable-fail-if-missing \
-    --prefix=${HOME}/.local/vim
+    --prefix="${HOME}"/.local/vim
 
-make -j$(($(nproc)-1)) VIMRUNTIMEDIR=${HOME}/.local/vim/share/vim/vim82
+make -j$(($(nproc)-1)) VIMRUNTIMEDIR="${HOME}"/.local/vim/share/vim/vim82
 make install

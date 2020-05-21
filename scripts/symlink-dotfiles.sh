@@ -1,60 +1,60 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 date=$(date --rfc-3339='seconds')
-source_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+source_dir="$(cd "$(dirname "$0")/.." && pwd)"
 
-if [[ -f ~/.bashrc && ! -h ~/.bashrc ]] ; then
+if [ -f ~/.bashrc ] && [ ! -h ~/.bashrc ] ; then
   mv "$HOME/.bashrc" "$HOME/dot-bashrc-$date"
 fi
-if [[ ! -h ~/.bashrc || $1 = "--force" ]] ; then
+if [ ! -h ~/.bashrc ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.bashrc" "$HOME/.bashrc"
 fi
 
-if [[ -f ~/.bash_logout && ! -h ~/.bash_logout ]] ; then
+if [ -f ~/.bash_logout ] && [ ! -h ~/.bash_logout ] ; then
   mv "$HOME/.bash_logout" "$HOME/dot-bash_logout-$date"
 fi
-if [[ ! -h ~/.bash_logout || $1 = "--force" ]] ; then
+if [ ! -h ~/.bash_logout ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.bash_logout" "$HOME/.bash_logout"
 fi
 
-if [[ -f ~/.inputrc && ! -h ~/.inputrc ]] ; then
+if [ -f ~/.inputrc ] && [ ! -h ~/.inputrc ] ; then
   mv "$HOME/.inputrc" "$HOME/dot-inputrc-$date"
 fi
-if [[ ! -h ~/.inputrc || $1 = "--force" ]] ; then
+if [ ! -h ~/.inputrc ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.inputrc" "$HOME/.inputrc"
 fi
 
-if [[ -f ~/.profile && ! -h ~/.profile ]] ; then
+if [ -f ~/.profile ] && [ ! -h ~/.profile ] ; then
   mv "$HOME/.profile" "$HOME/dot-profile-$date"
 fi
-if [[ ! -h ~/.profile || $1 = "--force" ]] ; then
+if [ ! -h ~/.profile ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.profile" "$HOME/.profile"
 fi
 
-if [[ -f ~/.spacemacs && ! -h ~/.spacemacs ]] ; then
+if [ -f ~/.spacemacs ] && [ ! -h ~/.spacemacs ] ; then
   mv "$HOME/.spacemacs" "$HOME/dot-spacemacs-$date"
 fi
-if [[ ! -h ~/.spacemacs || $1 = "--force" ]] ; then
+if [ ! -h ~/.spacemacs ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.spacemacs" "$HOME/.spacemacs"
 fi
 
-if [[ -f ~/.tmux.conf && ! -h ~/.tmux.conf ]] ; then
+if [ -f ~/.tmux.conf ] && [ ! -h ~/.tmux.conf ] ; then
   mv "$HOME/.tmux.conf" "$HOME/dot-tmux.conf-$date"
 fi
-if [[ ! -h ~/.tmux.conf || $1 = "--force" ]] ; then
+if [ ! -h ~/.tmux.conf ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.tmux.conf" "$HOME/.tmux.conf"
 fi
 
-if [[ -f ~/.vimrc && ! -h ~/.vimrc ]] ; then
+if [ -f ~/.vimrc ] && [ ! -h ~/.vimrc ] ; then
   mv "$HOME/.vimrc" "$HOME/dot-vimrc-$date"
 fi
-if [[ ! -h ~/.vimrc || $1 = "--force" ]] ; then
+if [ ! -h ~/.vimrc ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.vimrc" "$HOME/.vimrc"
 fi
 
-if [[ -d ~/.vim && ! -h ~/.vim ]] ; then
+if [ -d ~/.vim ] && [ ! -h ~/.vim ] ; then
   mv "$HOME/.vim" "$HOME/dot-vim-$date"
 fi
-if [[ ! -h ~/.vim || $1 = "--force" ]] ; then
+if [ ! -h ~/.vim ] || [ "$1" = "--force" ] ; then
   ln -snf "$source_dir/.vim" "$HOME/.vim"
 fi
