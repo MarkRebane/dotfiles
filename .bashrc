@@ -122,9 +122,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias less='less -R'
     alias tmux='tmux -2'
 
-    #LS_COLORS use dircolors(1) to set it
-    eval $(dircolors -p | perl -pe '' | dircolors -)
-
     # coloured GCC warnings and errors
     export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
