@@ -75,56 +75,55 @@ if exists('vim_plug_vim_path')
     endif
 endif
 
-" Hack to make python3 load before python2.
-":python3 import os
-
 call plug#begin(vim_plugged)
 " C++
-Plug 'lyuts/vim-rtags'                                " C++ clang symbol lookup
-Plug 'rhysd/vim-clang-format'                         " C/C++ formatting
-Plug 'Rip-Rip/clang_complete'                         " clang snippets
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'} " symbol completion
-"Plug 'SirVer/ultisnips'                               " paste snippets, uses YCM
+"Plug 'lyuts/vim-rtags'          " C++ clang symbol lookup
+Plug 'prabirshrestha/async.vim' " normalise async job control API
+Plug 'prabirshrestha/vim-lsp'   " async LSP plugin
+Plug 'rhysd/vim-clang-format'   " C/C++ formatting
+Plug 'Rip-Rip/clang_complete'   " clang snippets
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
+                                " symbol completion
 " Markdown
-"Plug 'godlygeek/tabular'           " text alignment
-"Plug 'plasticboy/vim-markdown'     " markdown vim mode
-Plug 'tpope/vim-markdown'           " markdown vim mode
+Plug 'tpope/vim-markdown'       " markdown vim mode
 " Programming
-Plug 'ervandew/supertab'            " <tab> to perform completions
-"Plug 'sheerun/vim-polyglot'        " collection of language packs
-Plug 'w0rp/ale', {'for': 'python'}  " Asynchronous Lint Engine, with Language Server Protocol
-"Plug 'vim-syntastic/syntastic', {'for': 'markdown'} " syntax checking for many languages
-Plug 'psf/black', {'for': 'python'} " The uncompromising Python code formatter
+Plug 'ervandew/supertab'        " <tab> to perform completions
+Plug 'w0rp/ale', {'for': 'python'}
+                                " Asynchronous Lint Engine, with LSP
+Plug 'psf/black', {'for': 'python'}
+                                " The uncompromising Python code formatter
 " Colour schemes
-Plug 'altercation/vim-colors-solarized'
-Plug 'dracula/vim', {'as': 'dracula'}
-Plug 'morhetz/gruvbox'
-Plug 'jacoborus/tender.vim'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'dracula/vim', {'as': 'dracula'}
+" Plug 'morhetz/gruvbox'
+" Plug 'jacoborus/tender.vim'
 Plug 'nanotech/jellybeans.vim', {'tag': 'v1.7'}
 " Rainbow braces
 Plug 'luochen1990/rainbow'
 " Tim Pope plugins
-Plug 'tpope/vim-abolish'       " abbreviation, substitution, and coercion
-Plug 'tpope/vim-commentary'    " [un]comment stuff
-Plug 'tpope/vim-dispatch'      " asynchronous build and test dispatcher
-Plug 'tpope/vim-fugitive'      " a Git wrapper
-Plug 'tpope/vim-obsession'     " continuously updated session files ':Obsess'
-Plug 'tpope/vim-projectionist' " granular project configuration
-Plug 'tpope/vim-repeat'        " enable repeating supported plugin maps with '.'
-Plug 'tpope/vim-surround'      " quoting/parenthesising made simple
-Plug 'tpope/vim-vinegar'       " enhance netrw (the built-in directory browser)
+Plug 'tpope/vim-abolish'        " abbreviation, substitution, and coercion
+Plug 'tpope/vim-commentary'     " [un]comment stuff
+Plug 'tpope/vim-dispatch'       " asynchronous build and test dispatcher
+Plug 'tpope/vim-fugitive'       " a Git wrapper
+Plug 'tpope/vim-obsession'      " continuously updated session files ':Obsess'
+Plug 'tpope/vim-projectionist'  " granular project configuration
+Plug 'tpope/vim-repeat'         " repeat supported plugin maps with '.'
+Plug 'tpope/vim-surround'       " quoting/parenthesising made simple
+Plug 'tpope/vim-vinegar'        " enhance netrw (the built-in directory browser)
 " File Navigation
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " a directory/file explorer
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+                                " a directory/file explorer
 Plug 'wincent/command-t', {
   \  'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
-  \ }                                                " fuzzy file navigation
+  \ }                           " fuzzy file navigation
 " Vim Helpers
-Plug 'airblade/vim-gitgutter'                    " shows a git diff in the gutter
-Plug 'benmills/vimux'                            " plugin to interact with tmux
-Plug 'christoomey/vim-tmux-navigator'            " seamless navigation between tmux panes and vim splits
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'} " undo history visualiser
+Plug 'airblade/vim-gitgutter'   " shows a git diff in the gutter
+Plug 'benmills/vimux'           " plugin to interact with tmux
+Plug 'christoomey/vim-tmux-navigator'
+                                " seamless navigation between tmux panes and vim splits
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+                                " undo history visualiser
 Plug 'powerline/powerline'
-Plug 'vim-scripts/Tabmerge'
 Plug 'wesQ3/vim-windowswap'
 "
 call plug#end()
