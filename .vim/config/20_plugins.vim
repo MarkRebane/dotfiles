@@ -101,6 +101,27 @@ let g:rtagsUseLocationList = 0
 let g:rtagsMinCharsForCommandCompletion = 3
 let g:rtagsLog = "~/.vim/rtags-log.txt"
 
+" -- vim-lsp -------------------------------------------------------------------
+let g:lsp_fold_enabled = 0
+
+" Register ccls C++ language server
+if executable('ccls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'ccls',
+        \ 'cmd': {server_info->['ccls']},
+        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+        \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+        \ 'whitelist': ['c', 'cpp', 'cc', 'h', 'hpp', 'hh'],
+        \ })
+endif
+
+" Key bindings
+nn <silent> <C-]> :LspDefinition<CR>
+nn <silent> <Leader>gr :LspReferences<CR>
+nn <silent> <Leader>rr :LspRename<CR>
+nn <silent> <Leader>gs :LspWorkspaceSymbol<CR>
+nn <silent> <Leader>gd :LspDocumentSymbol<CR>
+
 " -- vim-markdown --------------------------------------------------------------
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_toc_autofit = 1
