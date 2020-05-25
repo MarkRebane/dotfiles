@@ -137,4 +137,10 @@ endif
 for filename in sort(split(glob(vim_config . '/*.vim'), '\n'))
     execute 'source ' . filename
 endfor
-execute 'source ~/.vimrc.local'
+if filereadable($HOME.'/.vimrc.local')
+    execute 'source ~/.vimrc.local'
+endif
+if filereadable('.dir-locals.vim')
+    echo 'Loading: .dir-locals.vim'
+    execute 'source .dir-locals.vim'
+endif
