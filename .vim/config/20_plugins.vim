@@ -116,11 +116,12 @@ if executable('ccls')
 endif
 
 " Key bindings
-nn <silent> <C-]> :LspDefinition<CR>
+nn <silent> <Leader>gc :LspDeclaration<CR>
+nn <silent> <Leader>gd :LspDefinition<CR>
 nn <silent> <Leader>gr :LspReferences<CR>
 nn <silent> <Leader>rr :LspRename<CR>
-nn <silent> <Leader>gs :LspWorkspaceSymbol<CR>
-nn <silent> <Leader>gd :LspDocumentSymbol<CR>
+nn <silent> <Leader>ws :LspWorkspaceSymbol<CR>
+nn <silent> <Leader>ds :LspDocumentSymbol<CR>
 
 " -- vim-markdown --------------------------------------------------------------
 let g:vim_markdown_folding_disabled = 1
