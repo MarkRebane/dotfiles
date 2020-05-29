@@ -91,25 +91,15 @@ set statusline+=\ [%{getcwd()}] " current dir
 set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
 if has("gui_running")
-    set lines=40 columns=80
-    "set guifont=Inconsolata\ 12
-    "set guifont=Monaco\ 12
-    "set guifont=MesloLGM\ 10
-    set guifont=Hack\ 11
-    " Menubar
-    set guioptions-=m
-    " Toolbar
-    set guioptions-=T
-    " Scrollbar
-    set guioptions-=r
-
-    hi clear SpellCap
-    hi clear SpellLocal
-    hi clear SpellRare
-else
-    hi clear SpellBad
-    hi clear SpellCap
-    hi clear SpellLocal
-    hi clear SpellRare
-    hi SpellBad cterm=underline
+    set lines=50 columns=172
+    set guifont=Source\ Code\ Pro\ 14
+    set guioptions-=m " Disable menubar
+    set guioptions-=T " Disable toolbar
+    set guioptions-=r " Disable scrollbar
 endif
+
+hi clear SpellBad
+hi clear SpellCap
+hi clear SpellLocal
+hi clear SpellRare
+hi SpellBad cterm=underline
