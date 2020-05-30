@@ -15,8 +15,8 @@ esac
 HISTCONTROL=ignoreboth:erasedups
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTFILESIZE=10000
-HISTSIZE=1000
+HISTFILESIZE= # Infinite history
+HISTSIZE=     # Infinite history
 
 # cd into directories by typing only the directory name
 shopt -s autocd
@@ -115,10 +115,11 @@ unset colour_prompt force_colour_prompt
 # enable colour support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls -hNF --color=auto --group-directories-first --time-style=iso'
     alias grep='grep --color=auto'
     alias egrep='egrep --color=auto'
     alias fgrep='fgrep --color=auto'
+    alias ccat='highlight --out-format=ansi'
     alias less='less -R'
     alias tmux='tmux -2'
 
@@ -142,9 +143,7 @@ if [ -x /usr/bin/dircolors ]; then
     # Colour themes for LS_COLORS: https://github.com/sharkdp/vivid
 fi
 
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -al'
 alias mkdir='mkdir -p'
 alias vi='vim'
 
