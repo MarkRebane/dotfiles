@@ -68,20 +68,20 @@ $if mode=vi
 set keymap vi-command
 
 # Search history using the string pre-pending the cursor
-"\C-p": history-search-backward
-"\C-n": history-search-forward
+"\C-P": history-search-backward
+"\C-N": history-search-forward
 
 # Bind clear screen
-"\C-l": clear-screen
+"\M-L": clear-screen
 
 ## { insert-mode }
 set keymap vi-insert
 
 # Search history using the string pre-pending the cursor
-"\C-p": history-search-backward
-"\C-n": history-search-forward
+"\C-P": history-search-backward
+"\C-N": history-search-forward
 
 # Bind clear screen
-"\C-l": clear-screen
+"\M-L": clear-screen
 
 $endif
