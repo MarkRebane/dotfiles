@@ -7,11 +7,9 @@
 let g:solarized_termcolors=16
 colorscheme jellybeans
 
-" -- black ---------------------------------------------------------------------
-let g:black_fast = 0
-let g:black_linelength = 79
-let g:black_skip_string_normalization = 0
-au BufWritePre *.py execute ':Black'
+" -- ale -----------------------------------------------------------------------
+let g:ale_fixers = ['black', 'isort']
+let g:ale_fix_on_save = 1
 
 " -- clang_complete ------------------------------------------------------------
 let g:clang_auto_select = 1    " automatically select the first entry

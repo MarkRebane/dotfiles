@@ -90,8 +90,6 @@ Plug 'tpope/vim-markdown'       " markdown vim mode
 Plug 'ervandew/supertab'        " <tab> to perform completions
 Plug 'w0rp/ale', {'for': 'python'}
                                 " Asynchronous Lint Engine, with LSP
-Plug 'psf/black', {'for': 'python'}
-                                " The uncompromising Python code formatter
 " Colour schemes
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'dracula/vim', {'as': 'dracula'}
