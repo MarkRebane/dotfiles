@@ -91,7 +91,7 @@ set statusline+=\ [%{getcwd()}] " current dir
 set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
 if has("gui_running")
-    set lines=50 columns=172
+    set lines=50 columns=88
     set guifont=Source\ Code\ Pro\ 14
     set guioptions-=m " Disable menubar
     set guioptions-=T " Disable toolbar
