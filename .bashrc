@@ -346,10 +346,6 @@ function setup_local() {
         export LD_LIBRARY_PATH="${base}/lib64:${LD_LIBRARY_PATH}"
     fi
 
-    if [ -d "${base}/python2.7/site-packages" ]; then
-        export PYTHONPATH="${base}/python2.7/site-packages:${PYTHONPATH}"
-    fi
-
     if [ -d "${base}/python3.8/site-packages" ]; then
         export PYTHONPATH="${base}/python3.8/site-packages:${PYTHONPATH}"
     fi
