@@ -147,8 +147,7 @@ alias ll='ls -al'
 alias mkdir='mkdir -p'
 alias vi='vim'
 
-alias reload='source ~/.bashrc'
-alias relaod='source ~/.bashrc'
+alias reload='bind -f ~/.inputrc; source ~/.bashrc'
 
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
