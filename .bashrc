@@ -248,6 +248,15 @@ function powerprompt() {
 powerprompt
 PS2="\\ "
 
+## { fzf }----------------------------------------------------------------------
+
+# Setup fzf: $ apt install fzf
+# Auto-completion and key bindings
+[[ $- == *i* ]]                                                                \
+    && source "${HOME}/.fzf/shell/completion.bash"                             \
+    && source "${HOME}/.fzf/shell/key-bindings.bash"                           \
+    || echo "Warning: Failed to initialise fzf"
+
 ## { Functions }----------------------------------------------------------------
 
 function __loc() {
