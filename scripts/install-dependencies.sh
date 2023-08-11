@@ -11,7 +11,7 @@ sudo apt -y install                                                            \
     libevent-dev libutempter-dev libncurses5-dev                               \
     libgtk2.0-dev libatk1.0-dev libcairo2-dev libx11-dev                       \
     libxpm-dev libxt-dev libperl-dev gpm libgpm-dev lua5.3 liblua5.3-dev       \
-    ruby-dev
+    ruby-dev gettext unzip
 
 # Clang dependencies
 sudo apt -y install                                                            \
