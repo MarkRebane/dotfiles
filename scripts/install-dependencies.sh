@@ -20,7 +20,7 @@ sudo apt -y install                                                            \
 
 # Additional tools
 sudo apt -y install                                                            \
-    doxygen ripgrep tig
+    doxygen fzf ripgrep tig urlview xdg-utils
 
 # Python 3 auto-formatter.
 # pip3 install --user black
