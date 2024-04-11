@@ -1,5 +1,5 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
+set -euxo pipefail
 
 sudo apt -y update
 
@@ -18,12 +18,18 @@ sudo apt -y install                                                            \
     libz3-dev libxml2-dev libocaml-compiler-libs-ocaml-dev libedit-dev         \
     liblzma-dev swig
 
+# Emacs dependencies
+sudo apt -y build-dep emacs
+sudo apt -y install                                                            \
+    build-essential libgtk-3-dev libgnutls28-dev                               \
+    libtiff5-dev libgif-dev libjpeg-dev libpng-dev                             \
+    libxpm-dev libncurses-dev texinfo                                          \
+    libjansson4 libjansson-dev                                                 \
+    libgccjit0 libgccjit-10-dev gcc-10 g++-10                                  \
+    libmagickcore-dev libmagick++-dev                                          \
+    libtree-sitter-dev libwebkit2gtk-4.1-dev mailutils
+
 # Additional tools
 sudo apt -y install                                                            \
-    doxygen fzf ripgrep tig urlview xdg-utils
+    doxygen fzf gitk kmag ripgrep tig urlview xdg-utils
 
-# Python 3 auto-formatter.
-# pip3 install --user black
-
-# Powerline status bar used by the Vim configuration.
-# pip3 install --user powerline-status
