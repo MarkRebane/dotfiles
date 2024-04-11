@@ -35,5 +35,5 @@ make distclean
     --enable-fail-if-missing \
     --prefix="${HOME}"/.local/vim
 
-make -j$(($(nproc)-1)) VIMRUNTIMEDIR="${HOME}"/.local/vim/share/vim/vim90
+make -j$(($(nproc)-1)) VIMRUNTIMEDIR="${HOME}"/.local/vim/share/vim/vim91
 make install
