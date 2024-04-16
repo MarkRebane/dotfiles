@@ -17,7 +17,7 @@ fi
 
 export CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10
 ./autogen.sh && ./configure \
-    --with-native-compilation \
+    --with-native-compilation=aot \
     --with-pgtk \
     --with-x-toolkit=gtk3 \
     --with-tree-sitter \
