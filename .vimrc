@@ -77,23 +77,23 @@ endif
 
 call plug#begin(vim_plugged)
 " C++
-"Plug 'lyuts/vim-rtags'          " C++ clang symbol lookup
 Plug 'prabirshrestha/async.vim' " normalise async job control API
 Plug 'prabirshrestha/vim-lsp'   " async LSP plugin
-Plug 'rhysd/vim-clang-format'   " C/C++ formatting
-Plug 'Rip-Rip/clang_complete'   " clang snippets
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
-                                " symbol completion
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-lsp-settings'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'SirVer/ultisnips'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 " Markdown
 Plug 'tpope/vim-markdown'       " markdown vim mode
 " Programming
 Plug 'ervandew/supertab'        " <tab> to perform completions
-Plug 'w0rp/ale', {'for': 'python'}
-                                " Asynchronous Lint Engine, with LSP
 " Colour schemes
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'dracula/vim', {'as': 'dracula'}
-" Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox', {'tag': 'v3.0.1-rc.0'}
 " Plug 'jacoborus/tender.vim'
 Plug 'nanotech/jellybeans.vim', {'tag': 'v1.7'}
 " Rainbow braces
@@ -121,7 +121,6 @@ Plug 'christoomey/vim-tmux-navigator'
                                 " seamless navigation between tmux panes and vim splits
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
                                 " undo history visualiser
-Plug 'powerline/powerline'
 Plug 'wesQ3/vim-windowswap'
 "
 call plug#end()
