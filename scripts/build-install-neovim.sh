@@ -1,26 +1,26 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
+set -euxo pipefail
 
-## Prerequisites ###############################################################
+PACKAGE_NAME="nvim"
 
-# Install dependencies: # ${DOTFILES}/scripts/install-tool-dependencies.sh
+SOURCE_DIR="$HOME/source/tools"
+mkdir -p "$SOURCE_DIR"
 
-## Script Install ##############################################################
-
-neovim_dir="${HOME}/source/tools/neovim"
-if [ -d "${neovim_dir}" ]; then
-    echo "git pull ${neovim_dir}..."
-    cd "${neovim_dir}"
+if [ -d "$SOURCE_DIR/$PACKAGE_NAME" ]; then
+    pushd "$SOURCE_DIR/$PACKAGE_NAME"
     git pull --rebase
+    popd
 else
-    mkdir -p "${neovim_dir}" && cd "${neovim_dir}"
-    echo "git clone --recursive ${neovim_dir}..."
-    git clone --recursive https://github.com/neovim/neovim "${neovim_dir}"
-    cd "${neovim_dir}"
+    pushd "$SOURCE_DIR"
+    git clone --recursive https://github.com/neovim/neovim "$PACKAGE_NAME"
+    popd
 fi
+
+pushd "$SOURCE_DIR/$PACKAGE_NAME"
 
 make distclean
 make deps
 make CMAKE_BUILD_TYPE=RelWithDebInfo
-make CMAKE_INSTALL_PREFIX="${HOME}"/.local/neovim install
+make CMAKE_INSTALL_PREFIX="$HOME/.local/nvim" install
 
+popd
