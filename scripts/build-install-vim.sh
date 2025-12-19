@@ -1,23 +1,22 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
+set -euxo pipefail
 
-## Prerequisites ###############################################################
+PACKAGE_NAME="vim"
 
-# Install dependencies: # ${DOTFILES}/scripts/install-tool-dependencies.sh
+SOURCE_DIR="$HOME/source/tools"
+mkdir -p "$SOURCE_DIR"
 
-## Script Install ##############################################################
-
-vim_dir="${HOME}/source/tools/vim"
-if [ -d "${vim_dir}" ]; then
-    echo "git pull ${vim_dir}..."
-    cd "${vim_dir}"
+if [ -d "$SOURCE_DIR/$PACKAGE_NAME" ]; then
+    pushd "$SOURCE_DIR/$PACKAGE_NAME"
     git pull --rebase
+    popd
 else
-    mkdir -p "${vim_dir}" && cd "${vim_dir}"
-    echo "git clone --recursive ${vim_dir}..."
-    git clone --recursive https://github.com/vim/vim.git "${vim_dir}"
-    cd "${vim_dir}"
+    pushd "$SOURCE_DIR"
+    git clone --recursive https://github.com/vim/vim.git "$PACKAGE_NAME"
+    popd
 fi
+
+pushd "$SOURCE_DIR/$PACKAGE_NAME"
 
 make distclean
 ./configure \
@@ -33,7 +32,9 @@ make distclean
     --enable-python2interp=yes \
     --enable-python3interp=yes \
     --enable-fail-if-missing \
-    --prefix="${HOME}"/.local/vim
+    --prefix="$HOME/.local/vim"
 
-make -j$(($(nproc)-1)) VIMRUNTIMEDIR="${HOME}"/.local/vim/share/vim/vim91
+make -j$(($(nproc)-1)) VIMRUNTIMEDIR="$HOME/.local/vim/share/vim/vim91"
 make install
+
+popd
