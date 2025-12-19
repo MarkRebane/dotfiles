@@ -60,13 +60,13 @@ let g:rainbow_conf = {
 " -- vim-lsp -------------------------------------------------------------------
 
 " Register ccls C++ language server
-if executable('ccls')
+if executable('clangd')
     autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'ccls',
-        \ 'cmd': {server_info->['ccls']},
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd']},
         \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
         \ 'initialization_options': {
-        \     'cache': {'directory': '/tmp/ccls/cache' },
+        \     'cache': {'directory': '/tmp/clangd/cache' },
         \     'highlight': {'lsRanges': v:true}
         \ },
         \ 'allowlist': ['c', 'cpp', 'cc', 'h', 'hpp', 'hh'],
