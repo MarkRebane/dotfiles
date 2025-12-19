@@ -1,25 +1,28 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
+set -euxo pipefail
 
-## Prerequisites ###############################################################
+PACKAGE_NAME="tmux"
 
-# Install dependencies: # ${DOTFILES}/scripts/install-tool-dependencies.sh
+SOURCE_DIR="$HOME/source/tools"
+mkdir -p "$SOURCE_DIR"
 
-## Script Install ##############################################################
-
-source_dir="${HOME}/source/tools/tmux"
-if [ -d "${source_dir}" ]; then
-    cd "${source_dir}"
+if [ -d "$SOURCE_DIR/$PACKAGE_NAME" ]; then
+    pushd "$SOURCE_DIR/$PACKAGE_NAME"
     git pull --rebase
+    popd
 else
-    mkdir -p "${source_dir}" && cd "${source_dir}"
-    git clone --recursive https://github.com/tmux/tmux.git "${source_dir}"
-    cd "${source_dir}"
+    pushd "$SOURCE_DIR"
+    git clone --recursive https://github.com/tmux/tmux.git "$PACKAGE_NAME"
+    popd
 fi
+
+pushd "$SOURCE_DIR/$PACKAGE_NAME"
 
 ./autogen.sh
 ./configure \
     --enable-utempter \
-    --prefix="${HOME}"/.local/tmux
+    --prefix="$HOME/.local/tmux"
 make -j$(($(nproc)-1))
 make install
+
+popd
