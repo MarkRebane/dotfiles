@@ -80,6 +80,11 @@ augroup numbertoggle
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
+augroup cppcomments
+    autocmd!
+    autocmd FileType cpp,hpp set comments^=sO://\ -,mO://\ \  " prepend comment rules for bullet lists
+augroup END
+
 " Configure the status line
 " If using powerline, these will get overriden
 set statusline=%<%f\ " Filename
