@@ -343,6 +343,14 @@ function setup_local() {
         PATH="${base}/bin:${PATH}"
     fi
 
+    if [ -d "${base}/share" ]; then
+        export XDG_DATA_DIRS="${base}/share:${XDG_DATA_DIRS}"
+    fi
+
+    if [ -d "${base}/share/man" ]; then
+        export MANPATH="${base}/share/man:$MANPATH"
+    fi
+
     if [ -d "${base}/lib" ]; then
         export LD_LIBRARY_PATH="${base}/lib:${LD_LIBRARY_PATH}"
 
@@ -379,5 +387,9 @@ PATH=$(remove_duplicates ${PATH})
 PATH=$(remove_invalid_dirs ${PATH})
 LD_LIBRARY_PATH=$(remove_duplicates ${LD_LIBRARY_PATH})
 LD_LIBRARY_PATH=$(remove_invalid_dirs ${LD_LIBRARY_PATH})
+XDG_DATA_DIRS=$(remove_duplicates ${XDG_DATA_DIRS})
+XDG_DATA_DIRS=$(remove_invalid_dirs ${XDG_DATA_DIRS})
+MANPATH=$(remove_duplicates ${MANPATH})
+MANPATH=$(remove_invalid_dirs ${MANPATH})
 
 print_motd
