@@ -259,22 +259,6 @@ PS2="\\ "
 
 ## { Functions }----------------------------------------------------------------
 
-function __loc() {
-    find "$@" \
-        -type f \
-        -regextype posix-awk \
-        -regex '.*\.(d|h|hpp|c|cc|C|cxx|cpp|idl|java|pl|pm|py|vala)' \
-        -print0 | xargs --null cat | grep -v "^$" | wc -l
-}
-
-function loc() {
-    if [ $# -eq 0 ]; then
-        __loc "."
-    else
-        __loc "$@"
-    fi
-}
-
 # Print all 16 colours
 function rainbow16() {
     for i in $(seq -f "%02g" 0 7); do
