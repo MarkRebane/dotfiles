@@ -3,6 +3,13 @@
 DATE=$(date --rfc-3339='seconds')
 DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
+if [ -f ~/.bash-common.sh ] && [ ! -h ~/.bash-common.sh ] ; then
+    mv "$HOME/.bash-common.sh" "$HOME/dot-bash-common.sh-$DATE"
+fi
+if [ ! -h ~/.bash-common.sh ] || [ "$1" = "--force" ] ; then
+    ln -snf "$DOTFILES_DIR/dot-bash-common.sh" "$HOME/.bash-common.sh"
+fi
+
 if [ -f ~/.bashrc ] && [ ! -h ~/.bashrc ] ; then
     mv "$HOME/.bashrc" "$HOME/dot-bashrc-$DATE"
 fi
