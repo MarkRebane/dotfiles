@@ -230,7 +230,7 @@ function powerprompt() {
         # If this is an xterm set the title to:
         # user@host:#:dir(branch)
         # 00:00.00 $
-        xterm* | rxvt* )
+        xterm* | tmux* )
             PS1="$PS1\[${user_host_colour}\]\u@\h\[${no_colour}\]:\[${path_colour}\]\w"
             if [ -r /etc/bash_completion.d/git-prompt ]; then
                 #source /etc/bash_completion.d/git-prompt
