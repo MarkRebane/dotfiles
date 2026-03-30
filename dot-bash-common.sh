@@ -23,7 +23,7 @@ function normalise_entries() {
             continue
         fi
         if [[ ! -d "$entry" ]]; then
-            printf 'Warning: Missing directory: %s\n' "$entry" >&2
+            # printf 'Warning: Missing directory: %s\n' "$entry" >&2
             continue
         fi
         if [[ ! -x "$entry" ]]; then
@@ -31,7 +31,7 @@ function normalise_entries() {
             continue
         fi
         if [[ ${seen[$entry]} ]]; then
-            printf 'Warning: Duplicate entry: %s\n' "$entry" >&2
+            # printf 'Warning: Duplicate entry: %s\n' "$entry" >&2
             continue
         fi
         seen[$entry]=1
