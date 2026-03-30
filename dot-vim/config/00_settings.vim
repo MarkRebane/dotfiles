@@ -19,7 +19,7 @@ set expandtab           " use the appropriate number of spaces to insert a <tab>
 set fileformats=unix,dos
                         " default to Unix files but autodetect dos files
 set fillchars+=vert:\   " remove pipe characters from vertical splits
-set history=1000        " number of command-lines to stored in history
+set history=10000       " number of command-lines to stored in history
 set hlsearch            " highlight all matches of a search pattern
 set ignorecase smartcase
                         " case insensitive search unless caps are used
