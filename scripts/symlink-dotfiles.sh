@@ -58,3 +58,10 @@ fi
 if [ ! -h ~/.vim ] || [ "$1" = "--force" ] ; then
     ln -snf "$DOTFILES_DIR/dot-vim" "$HOME/.vim"
 fi
+
+if [ -d ~/.config/nvim ] && [ ! -h ~/.config/nvim ] ; then
+    mv "$HOME/.config/nvim" "$HOME/.config/dot-nvim-$DATE"
+fi
+if [ ! -h ~/.config/nvim ] || [ "$1" = "--force" ] ; then
+    ln -snf "$DOTFILES_DIR/dot-config/nvim" "$HOME/.config/nvim"
+fi
