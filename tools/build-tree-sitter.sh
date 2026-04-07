@@ -2,8 +2,8 @@
 set -e
 
 PACKAGE_NAME="tree-sitter"
-PACKAGE_VERSION_MAJOR="0.25"
-PACKAGE_VERSION_PATCH="10"
+PACKAGE_VERSION_MAJOR="0.26"
+PACKAGE_VERSION_PATCH="8"
 
 SOURCE_DIR="$HOME/source/tools"
 BUILD_DIR="$HOME/build/tools"
@@ -35,6 +35,6 @@ wget https://github.com/tree-sitter/tree-sitter/releases/download/v$PACKAGE_VERS
 gunzip tree-sitter-linux-x64.gz
 mkdir -p "$INSTALL_PREFIX/bin"
 mv tree-sitter-linux-x64 "$INSTALL_PREFIX/bin/$PACKAGE_NAME-cli"
-chmod u+x "$INSTALL_PREFIX/bin/$PACKAGE_NAME"
+chmod u+x "$INSTALL_PREFIX/bin/$PACKAGE_NAME-cli"
 
 popd
