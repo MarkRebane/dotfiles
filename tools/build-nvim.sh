@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 PACKAGE_NAME="nvim"
-PACKAGE_VERSION="0.12.0"
+PACKAGE_VERSION="0.12.1"
 INSTALL_DIR="$HOME/.local/$PACKAGE_NAME"
 
 SOURCE_DIR="$HOME/source/tools"
