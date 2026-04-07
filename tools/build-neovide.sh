@@ -11,6 +11,7 @@ pushd "$SOURCE_DIR/$PACKAGE_NAME"
 
 wget https://github.com/neovide/neovide/releases/download/$PACKAGE_VERSION/neovide-linux-x86_64.tar.gz
 tar xf neovide-linux-x86_64.tar.gz
+mkdir -p "$HOME/.local/bin"
 mv neovide "$INSTALL_EXE"
 chmod u+x "$INSTALL_EXE"
 
