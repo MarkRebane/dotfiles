@@ -316,9 +316,9 @@ vim.api.nvim_create_autocmd('User', {
     pattern = 'TSUpdate',
     callback = function()
         require('nvim-treesitter.parsers').jai = {
+            ---@diagnostic disable-next-line: missing-fields
             install_info = {
                 url = 'https://github.com/constantitus/tree-sitter-jai',
-                revision = '',
                 branch = 'master',
                 queries = 'queries',
             },
