@@ -330,14 +330,23 @@ vim.api.nvim_create_autocmd('User', {
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     callback = function(event)
-        local treesitter = require 'nvim-treesitter'
+        if vim.bo[event.buf].buftype ~= '' then
+            return
+        end
+
+        local ts = require 'nvim-treesitter'
         local lang = vim.treesitter.language.get_lang(event.match)
-        if vim.list_contains(treesitter.get_available(), lang) then
-            treesitter.install(lang, { summary = false }):await(function(err)
+            or event.match
+
+        if vim.list_contains(ts.get_available(), lang) then
+            ts.install(lang, { summary = false }):await(function(err)
                 if err ~= nil then
                     vim.notify(err, vim.log.levels.ERROR)
-                else
-                    vim.treesitter.start(event.buf)
+                elseif
+                    vim.api.nvim_buf_is_valid(event.buf)
+                    and vim.bo[event.buf].buftype == ''
+                then
+                    vim.treesitter.start(event.buf, lang)
                 end
             end)
         end
