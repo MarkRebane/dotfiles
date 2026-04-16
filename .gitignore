@@ -1,2 +1,3 @@
-dot-vim
-!dot-vim/config
+dot-config/vim
+!dot-config/vim/config
+!dot-config/vim/vimrc

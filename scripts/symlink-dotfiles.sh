@@ -65,18 +65,6 @@ link_dotfile \
     "$HOME/dot-profile-$DATE" \
     file
 
-link_dotfile \
-    "$DOTFILES_DIR/dot-vimrc" \
-    "$HOME/.vimrc" \
-    "$HOME/dot-vimrc-$DATE" \
-    file
-
-link_dotfile \
-    "$DOTFILES_DIR/dot-vim" \
-    "$HOME/.vim" \
-    "$HOME/dot-vim-$DATE" \
-    dir
-
 mkdir -p "$XDG_CONFIG_HOME"
 
 for src in "$DOTFILES_DIR"/dot-config/* ; do
