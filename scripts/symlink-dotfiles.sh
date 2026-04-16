@@ -63,12 +63,6 @@ link_dotfile \
     file
 
 link_dotfile \
-    "$DOTFILES_DIR/dot-tmux.conf" \
-    "$HOME/.tmux.conf" \
-    "$HOME/dot-tmux.conf-$DATE" \
-    file
-
-link_dotfile \
     "$DOTFILES_DIR/dot-vimrc" \
     "$HOME/.vimrc" \
     "$HOME/dot-vimrc-$DATE" \
