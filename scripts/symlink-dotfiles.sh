@@ -80,8 +80,14 @@ link_dotfile \
     "$HOME/dot-vim-$DATE" \
     dir
 
-link_dotfile \
-    "$DOTFILES_DIR/dot-config/nvim" \
-    "$HOME/.config/nvim" \
-    "$HOME/.config/nvim-$DATE" \
-    dir
+for src in "$DOTFILES_DIR"/dot-config/* ; do
+    [ -d "$src" ] || continue
+
+    name=$(basename "$src")
+
+    link_dotfile \
+        "$src" \
+        "$HOME/.config/$name" \
+        "$HOME/.config/$name-$DATE" \
+        dir
+done
