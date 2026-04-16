@@ -3,6 +3,7 @@
 DATE=$(date --rfc-3339='seconds')
 DOTFILES_DIR=$(cd "$(dirname "$0")/.." && pwd)
 FORCE=${1-}
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 
 link_dotfile() {
     src=$1
@@ -74,6 +75,8 @@ link_dotfile \
     "$HOME/dot-vim-$DATE" \
     dir
 
+mkdir -p "$XDG_CONFIG_HOME"
+
 for src in "$DOTFILES_DIR"/dot-config/* ; do
     [ -d "$src" ] || continue
 
@@ -81,7 +84,7 @@ for src in "$DOTFILES_DIR"/dot-config/* ; do
 
     link_dotfile \
         "$src" \
-        "$HOME/.config/$name" \
-        "$HOME/.config/$name-$DATE" \
+        "$XDG_CONFIG_HOME/$name" \
+        "$XDG_CONFIG_HOME/$name-$DATE" \
         dir
 done
