@@ -1,67 +1,87 @@
 #!/bin/sh
 
 DATE=$(date --rfc-3339='seconds')
-DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+DOTFILES_DIR=$(cd "$(dirname "$0")/.." && pwd)
+FORCE=${1-}
 
-if [ -f ~/.bash-common.sh ] && [ ! -h ~/.bash-common.sh ] ; then
-    mv "$HOME/.bash-common.sh" "$HOME/dot-bash-common.sh-$DATE"
-fi
-if [ ! -h ~/.bash-common.sh ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-bash-common.sh" "$HOME/.bash-common.sh"
-fi
+link_dotfile() {
+    src=$1
+    dst=$2
+    backup=$3
+    kind=$4
 
-if [ -f ~/.bashrc ] && [ ! -h ~/.bashrc ] ; then
-    mv "$HOME/.bashrc" "$HOME/dot-bashrc-$DATE"
-fi
-if [ ! -h ~/.bashrc ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-bashrc" "$HOME/.bashrc"
-fi
+    case "$kind" in
+        file)
+            if [ -f "$dst" ] && [ ! -h "$dst" ] ; then
+                mv "$dst" "$backup"
+            fi
+            ;;
+        dir)
+            if [ -d "$dst" ] && [ ! -h "$dst" ] ; then
+                mv "$dst" "$backup"
+            fi
+            ;;
+        *)
+            echo "link_dotfile: unknown kind: $kind" >&2
+            return 1
+            ;;
+    esac
 
-if [ -f ~/.bash_logout ] && [ ! -h ~/.bash_logout ] ; then
-    mv "$HOME/.bash_logout" "$HOME/dot-bash_logout-$DATE"
-fi
-if [ ! -h ~/.bash_logout ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-bash_logout" "$HOME/.bash_logout"
-fi
+    if [ ! -h "$dst" ] || [ "$FORCE" = "--force" ] ; then
+        ln -snf "$src" "$dst"
+    fi
+}
 
-if [ -f ~/.inputrc ] && [ ! -h ~/.inputrc ] ; then
-    mv "$HOME/.inputrc" "$HOME/dot-inputrc-$DATE"
-fi
-if [ ! -h ~/.inputrc ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-inputrc" "$HOME/.inputrc"
-fi
+link_dotfile \
+    "$DOTFILES_DIR/dot-bash-common.sh" \
+    "$HOME/.bash-common.sh" \
+    "$HOME/dot-bash-common.sh-$DATE" \
+    file
 
-if [ -f ~/.profile ] && [ ! -h ~/.profile ] ; then
-    mv "$HOME/.profile" "$HOME/dot-profile-$DATE"
-fi
-if [ ! -h ~/.profile ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-profile" "$HOME/.profile"
-fi
+link_dotfile \
+    "$DOTFILES_DIR/dot-bashrc" \
+    "$HOME/.bashrc" \
+    "$HOME/dot-bashrc-$DATE" \
+    file
 
-if [ -f ~/.tmux.conf ] && [ ! -h ~/.tmux.conf ] ; then
-    mv "$HOME/.tmux.conf" "$HOME/dot-tmux.conf-$DATE"
-fi
-if [ ! -h ~/.tmux.conf ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-tmux.conf" "$HOME/.tmux.conf"
-fi
+link_dotfile \
+    "$DOTFILES_DIR/dot-bash_logout" \
+    "$HOME/.bash_logout" \
+    "$HOME/dot-bash_logout-$DATE" \
+    file
 
-if [ -f ~/.vimrc ] && [ ! -h ~/.vimrc ] ; then
-    mv "$HOME/.vimrc" "$HOME/dot-vimrc-$DATE"
-fi
-if [ ! -h ~/.vimrc ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-vimrc" "$HOME/.vimrc"
-fi
+link_dotfile \
+    "$DOTFILES_DIR/dot-inputrc" \
+    "$HOME/.inputrc" \
+    "$HOME/dot-inputrc-$DATE" \
+    file
 
-if [ -d ~/.vim ] && [ ! -h ~/.vim ] ; then
-    mv "$HOME/.vim" "$HOME/dot-vim-$DATE"
-fi
-if [ ! -h ~/.vim ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-vim" "$HOME/.vim"
-fi
+link_dotfile \
+    "$DOTFILES_DIR/dot-profile" \
+    "$HOME/.profile" \
+    "$HOME/dot-profile-$DATE" \
+    file
 
-if [ -d ~/.config/nvim ] && [ ! -h ~/.config/nvim ] ; then
-    mv "$HOME/.config/nvim" "$HOME/.config/dot-nvim-$DATE"
-fi
-if [ ! -h ~/.config/nvim ] || [ "$1" = "--force" ] ; then
-    ln -snf "$DOTFILES_DIR/dot-config/nvim" "$HOME/.config/nvim"
-fi
+link_dotfile \
+    "$DOTFILES_DIR/dot-tmux.conf" \
+    "$HOME/.tmux.conf" \
+    "$HOME/dot-tmux.conf-$DATE" \
+    file
+
+link_dotfile \
+    "$DOTFILES_DIR/dot-vimrc" \
+    "$HOME/.vimrc" \
+    "$HOME/dot-vimrc-$DATE" \
+    file
+
+link_dotfile \
+    "$DOTFILES_DIR/dot-vim" \
+    "$HOME/.vim" \
+    "$HOME/dot-vim-$DATE" \
+    dir
+
+link_dotfile \
+    "$DOTFILES_DIR/dot-config/nvim" \
+    "$HOME/.config/nvim" \
+    "$HOME/.config/nvim-$DATE" \
+    dir
