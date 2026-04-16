@@ -70,3 +70,4 @@ export PATH=$(normalise_entries "$PATH")
 export LD_LIBRARY_PATH=$(normalise_entries "$LD_LIBRARY_PATH")
 export XDG_DATA_DIRS=$(normalise_entries "$XDG_DATA_DIRS")
 export MANPATH=$(normalise_entries "$MANPATH")
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"

@@ -54,12 +54,6 @@ link_dotfile \
     file
 
 link_dotfile \
-    "$DOTFILES_DIR/dot-inputrc" \
-    "$HOME/.inputrc" \
-    "$HOME/dot-inputrc-$DATE" \
-    file
-
-link_dotfile \
     "$DOTFILES_DIR/dot-profile" \
     "$HOME/.profile" \
     "$HOME/dot-profile-$DATE" \
