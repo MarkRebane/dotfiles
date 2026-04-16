@@ -19,7 +19,7 @@ function normalise_entries() {
     declare -A seen
     while IFS= read -r entry; do
         if [[ -z "$entry" ]]; then
-            printf 'Warning: Empty entry\n' "$entry" >&2
+            printf 'Warning: Empty entry\n' >&2
             continue
         fi
         if [[ ! -d "$entry" ]]; then
