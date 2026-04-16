@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eux
+
 DATE=$(date --rfc-3339='seconds')
 DOTFILES_DIR=$(cd "$(dirname "$0")/.." && pwd)
 FORCE=${1-}
