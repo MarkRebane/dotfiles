@@ -553,27 +553,25 @@ require('lazy').setup({
         'DrKJeff16/project.nvim',
         event = 'VimEnter',
         dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-            'ibhagwan/fzf-lua',
+            {
+                'nvim-telescope/telescope.nvim',
+                dependencies = { 'nvim-lua/plenary.nvim' },
+            },
         },
-        config = function()
-            require('project').setup {
-                sync_root_with_cwd = true,
-                respect_buf_cwd = true,
-                update_focused_file = {
-                    enable = true,
-                    update_root = true,
-                },
-                patterns = {
-                    '!.git',
-                    '!.cache',
-                    '!.ccls-cache',
-                    '.workspace',
-                },
-            }
-            require('project.api').on_buf_enter()
-        end,
+        opts = {
+            sync_root_with_cwd = true,
+            respect_buf_cwd = true,
+            update_focused_file = {
+                enable = true,
+                update_root = true,
+            },
+            patterns = {
+                '!.git',
+                '!.cache',
+                '!.ccls-cache',
+                '.workspace',
+            },
+        },
         keys = {
             {
                 '<leader>pp',
