@@ -22,41 +22,48 @@ if !exists('g:os')
     endif
 endif
 
-" Automatically download vim-plug to the autoload directory if it's not there
-if has('nvim')
-    if g:os == 'Linux'
-        echo 'TESTME: support automatically installing vim/plug for NeoVim on Linux'
-        let vim_base_dir = $HOME.'/.local/share/nvim/site'
-    elseif g:os == 'Windows'
-        echo 'TODO: support automatically installing vim/plug for NeoVim on Windows'
-    elseif g:os == 'Darwin'
-        echo 'TODO: support automatically installing vim/plug for NeoVim on MacOSX'
-    else
-        echo 'nvim: Unknown operating system: $(g:os)'
-    endif
-else
-    if g:os == 'Linux'
-        let vim_base_dir = $HOME.'/.vim'
-    elseif g:os == 'Windows'
-        echo 'TODO: support automatically installing vim/plug for Vim on Windows'
-    elseif g:os == 'Darwin'
-        echo 'TODO: support automatically installing vim/plug for Vim on MacOSX'
-    else
-        echo 'vim: Unknown operating system: $(g:os)'
-    endif
-endif
-let vim_plug_vim_path = vim_base_dir.'/autoload'
-let vim_plugged = vim_base_dir.'/plugged'
-let vim_config = vim_base_dir.'/config'
-let vim_tmp = vim_base_dir.'/tmp'
-let vim_undodir = vim_base_dir.'/undodir'
+let s:xdg_cache  = empty($XDG_CACHE_HOME)  ? $HOME.'/.cache'       : $XDG_CACHE_HOME
+let s:xdg_config = empty($XDG_CONFIG_HOME) ? $HOME.'/.config'      : $XDG_CONFIG_HOME
+let s:xdg_state  = empty($XDG_STATE_HOME)  ? $HOME.'/.local/state' : $XDG_STATE_HOME
 
-sil exe '!mkdir -p '.vim_tmp
-sil exe '!mkdir -p '.vim_undodir
-let &runtimepath.=','.vim_base_dir
-let &backupdir = vim_tmp.'//'
-let &directory = vim_tmp.'//'
-let &undodir = vim_undodir.'//'
+" Automatically download vim-plug to the autoload directory if it's not there
+if g:os ==# 'Linux' || g:os ==# 'Darwin'
+    let vim_cache_dir  = s:xdg_cache.'/vim'
+    let vim_config_dir = s:xdg_config.'/vim'
+    let vim_state_dir  = s:xdg_state.'/vim'
+elseif g:os ==# 'Windows'
+    let vim_cache_dir  = $LOCALAPPDATA.'/vim/cache'
+    let vim_config_dir = $APPDATA.'/vim'
+    let vim_state_dir  = $LOCALAPPDATA.'/vim/state'
+else
+    echomsg 'vim: unknown operating system: '.g:os.' - falling back to ~/.vim'
+    let vim_cache_dir  = $HOME.'/.vim/cache'
+    let vim_config_dir = $HOME.'/.vim'
+    let vim_state_dir  = $HOME.'/.vim/state'
+endif
+
+let vim_plug_vim_path = vim_state_dir.'/autoload'
+let vim_plugged       = vim_state_dir.'/plugged'
+let vim_infofile      = vim_state_dir.'/viminfo'
+let vim_config        = vim_config_dir.'/config'
+let vim_tmp           = vim_cache_dir.'/tmp'
+let vim_undodir       = vim_cache_dir.'/undodir'
+
+for s:dir in [vim_state_dir, vim_plug_vim_path, vim_tmp, vim_undodir]
+    if !isdirectory(s:dir)
+        call mkdir(s:dir, 'p', 0700)
+    endif
+endfor
+
+let &runtimepath = vim_config_dir.','.&runtimepath
+if isdirectory(vim_config_dir.'/after')
+    let &runtimepath .= ','.vim_config_dir.'/after'
+endif
+
+let &backupdir   = vim_tmp.'//'
+let &directory   = vim_tmp.'//'
+let &undodir     = vim_undodir.'//'
+let &viminfofile = vim_infofile
 
 let vim_plug_autoinstall = 0
 let vim_plug =
@@ -134,8 +141,8 @@ endif
 for filename in sort(split(glob(vim_config . '/*.vim'), '\n'))
     execute 'source ' . filename
 endfor
-if filereadable($HOME.'/.vimrc.local')
-    execute 'source ~/.vimrc.local'
+if filereadable(vim_config_dir . '-local/vimrc')
+    execute 'source ' . vim_config_dir . '-local/vimrc'
 endif
 if filereadable('.dir-locals.vim')
     echo 'Loading: .dir-locals.vim'
