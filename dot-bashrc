@@ -257,6 +257,10 @@ PS2="\\ "
     && source "${HOME}/.fzf/shell/key-bindings.bash"                           \
     || echo "Warning: Failed to initialise fzf"
 
+## { tig }----------------------------------------------------------------------
+
+mkdir -p "$HOME/.local/share/tig"
+
 ## { tmux }---------------------------------------------------------------------
 
 export TMUX_PLUGIN_MANAGER_PATH="$HOME/.local/share/tmux/plugins"
