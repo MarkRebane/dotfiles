@@ -171,6 +171,10 @@ else
     user_host_colour=${plt07} # local machine
 fi
 
+## { Docker }-------------------------------------------------------------------
+
+export DOCKER_CONFIG="$HOME/.config/docker"
+
 ## { Less }---------------------------------------------------------------------
 
 # make less more friendly for non-text input files, see lesspipe(1)
