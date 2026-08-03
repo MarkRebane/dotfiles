@@ -31,5 +31,5 @@ sudo apt -y install                                                            \
 
 # Additional tools
 sudo apt -y install                                                            \
-    doxygen fasd fzf gitk kmag ripgrep tig urlview xdg-utils
+    doxygen fzf gitk kmag ripgrep tig tree urlview xdg-utils zoxide
 
