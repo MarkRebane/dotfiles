@@ -188,6 +188,10 @@ export LESS='-F -i -J -M -R -W -x4 -X -z-4'
 export LESSCHARSET='utf-8'
 export PAGER='less -R'
 
+## { NPM }----------------------------------------------------------------------
+
+export NPM_CONFIG_CACHE="$HOME/.cache/npm"
+
 ## { Prompt }-------------------------------------------------------------------
 
 # set variable identifying the chroot you work in (used in the prompt below)
