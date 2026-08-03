@@ -1627,6 +1627,33 @@ require('lazy').setup({
         },
     },
 
+    { -- Highlight unicode patterns
+        'nvim-mini/mini.hipatterns',
+        version = '*',
+        config = function()
+            local function define_highlights()
+                vim.api.nvim_set_hl(0, 'NonAscii', {
+                    bg = '#ff0000',
+                })
+            end
+
+            define_highlights()
+
+            vim.api.nvim_create_autocmd('ColorScheme', {
+                callback = define_highlights,
+            })
+
+            require('mini.hipatterns').setup {
+                highlighters = {
+                    non_ascii = {
+                        -- Match one UTF-8 character outside the ASCII range.
+                        pattern = '()[\194-\244][\128-\191]+()',
+                        group = 'NonAscii',
+                    },
+                },
+            }
+        end,
+    },
     -- { -- A multi-language debugging system for Vim
     --   'puremourning/vimspector',
     -- },
