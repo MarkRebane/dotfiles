@@ -14,6 +14,9 @@ esac
 # See bash(1) for more options
 HISTCONTROL=ignoreboth:erasedups
 
+mkdir -p "$HOME/.local/state/bash"
+HISTFILE="$HOME/.local/state/bash/history"
+
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTFILESIZE= # Infinite history
 HISTSIZE=     # Infinite history
