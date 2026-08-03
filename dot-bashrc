@@ -261,6 +261,10 @@ PS2="\\ "
 
 export TMUX_PLUGIN_MANAGER_PATH="$HOME/.local/share/tmux/plugins"
 
+## { wget }---------------------------------------------------------------------
+
+export WGETRC="$HOME/.config/wget/wgetrc"
+
 ## { Functions }----------------------------------------------------------------
 
 # Print all 16 colours
