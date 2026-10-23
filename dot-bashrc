@@ -168,11 +168,28 @@ function print_motd() {
             "\n${plt02}$(date)${no_colour}"
 }
 
-if [[ "${DISPLAY%%:0*}" != "" ]]; then
-    user_host_colour=${plt09} # remote machine
-else
-    user_host_colour=${plt07} # local machine
-fi
+detect_environment() {
+    if [ -f /.dockerenv ] || grep -qaE '(docker|containerd|kubepods|podman)' /proc/1/cgroup 2>/dev/null; then
+        echo container
+    elif [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ]; then
+        echo remote
+    else
+        echo local
+    fi
+}
+
+shell_env=$(detect_environment)
+case "$shell_env" in
+    local)
+        user_host_colour=${plt07}
+        ;;
+    remote)
+        user_host_colour=${plt09}
+        ;;
+    container)
+        user_host_colour=${plt10}
+        ;;
+esac
 
 ## { Docker }-------------------------------------------------------------------
 
