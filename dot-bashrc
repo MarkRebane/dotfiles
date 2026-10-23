@@ -246,7 +246,7 @@ function powerprompt() {
         xterm* | tmux* )
             PS1="$PS1\[${user_host_colour}\]\u@\h\[${no_colour}\]:\[${path_colour}\]\w"
             if [ -r /etc/bash_completion.d/git-prompt ]; then
-                #source /etc/bash_completion.d/git-prompt
+                source /etc/bash_completion.d/git-prompt
                 PS1="$PS1"'\['${git_colour}'\]$(__git_ps1 "(%s)")\['${no_colour}'\]'
             fi ;;
         * )
