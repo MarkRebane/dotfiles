@@ -53,6 +53,7 @@ function setup_local() {
 
 ## { Local setup & paths }------------------------------------------------------
 
+export MANPATH="/usr/share/man:$MANPATH"
 setup_local "$HOME/.local"
 for file in "$HOME/.local/"*; do
     setup_local "$file"
